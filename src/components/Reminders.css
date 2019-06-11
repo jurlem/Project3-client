@@ -1,0 +1,9 @@
+.reminder {
+  width: 60vw;
+  align-self: space-around;
+}
+
+p {
+  display: inline;
+  justify-content: space-around;
+}

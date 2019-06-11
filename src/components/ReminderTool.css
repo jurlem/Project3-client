@@ -1,0 +1,9 @@
+.remindertool {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.pd-top {
+  padding-top: 30vh;
+}
