@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import NewReminder from './components/NewReminder';
 import ReminderTool from './components/ReminderTool';
@@ -6,35 +6,94 @@ import Upgrade from './components/Upgrade';
 import Manage from './components/Manage';
 import Nav from './components/Nav';
 import PaypalButton from './components/PaypalButton';
-import Login from './components/Login';
 import Signup from './components/Signup';
+import Login from './components/Login';
+import Logout from './components/Logout';
+import NotFound from './components/NotFound';
+import Profile from './components/Profile';
 import './App.css';
 
-function App () {
-  return (
-    <main className="container">
-      <Nav />
+class App extends Component {
+  state = {
+    theUser: false,
+    typeOfUser: 'USER',
+  };
 
-      <Switch>
-        <Route exact path="/newreminder" component={NewReminder} />
-        <Route path="/upgrade" component={Upgrade} />
-        <Route path="/manage" component={Manage} />
-        <Route path="/pay" component={PaypalButton} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+  componentDidMount () {
+    this.setState ({
+      theUser: localStorage.getItem ('theUser'),
+      typeOfUser: localStorage.getItem ('typeOfUser'),
+    });
+  }
 
-        {/* <Route
-          exact
-          path="/signup"
-          render={() => (loggedIn ? <Redirect to="/" /> : <Signup />)}
-        /> */}
+  handleLogin (response) {
+    try {
+      localStorage.setItem ('theUser', response.data.first_name);
+      localStorage.setItem ('typeOfUser', response.data.typeOfUser);
 
-        <Route exact path="/" component={ReminderTool} />
+      this.setState ({
+        theUser: localStorage.getItem ('theUser'),
+        typeOfUser: localStorage.getItem ('typeOfUser'),
+      });
+    } catch (error) {
+      console.log (error);
+    }
+  }
 
-      </Switch>
+  handleLogout () {
+    try {
+      localStorage.clear ();
+    } catch (error) {
+      console.log (error);
+    }
+  }
 
-    </main>
-  );
+  render () {
+    return (
+      <React.Fragment>
+        <Nav
+          theUser={localStorage.theUser}
+          typeOfUser={localStorage.typeOfUser}
+        />
+        <main className="container">
+          <Switch>
+            <Route path="/signup" component={Signup} />
+            <Route
+              path="/Login"
+              render={routeProps => (
+                <Login {...routeProps} onLogin={this.handleLogin} />
+              )}
+            />
+            <Route path="/" component={ReminderTool} />
+            <Route exact path="/newreminder" component={NewReminder} />
+            <Route path="/upgrade" component={Upgrade} />
+            <Route path="/manage" component={Manage} />
+            <Route path="/pay" component={PaypalButton} />
+            <Route path="/profile" component={Profile} />
+            <Route path="/nothinghere" component={NotFound} />
+            <Redirect to="/nothinghere" />
+            <Route
+              path="/logout"
+              render={routeProps => (
+                <Logout {...routeProps} onLogout={this.handleLogout} />
+              )}
+            />
+            {/* <Redirect from="/" exact to="/login" />
+            */}
+
+            {/* <Route
+            exact
+            path="/login"
+            render={() =>
+              theUser ? <Redirect to="/login" /> : <ReminderTool />}
+          /> */}
+
+          </Switch>
+
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;

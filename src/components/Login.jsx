@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class Login extends Component {
-  state = {};
+  state = {
+    email_address: '',
+    password: '',
+    theUser: '',
+    typeOfUser: '',
+    error: '',
+  };
 
   handleEntry = e => {
     console.log (e.target.value);
@@ -11,20 +18,26 @@ class Login extends Component {
   };
 
   handleFormSubmit = e => {
-    console.log ('console.logging the state ', this.state);
     e.preventDefault ();
     axios
       .post ('http://localhost:6001/auth/login', this.state)
       .then (response => {
-        console.log ('console logging post /login', response);
+        console.log ('This comes back from auth/login:', response.data);
 
-        // localStorage.setItem ( ('token': jwt));
-        // this.props.history.push ('/');
+        // localStorage.setItem ('theUser', response.data.first_name);
+        // localStorage.setItem ('typeOfUser', response.data.typeOfUser);
+
+        // this.setState ({}); this desnt refresh the NAV bar
+        this.props.onLogin (response);
+        window.location = '/';
+
         //https://www.lullabot.com/articles/processing-forms-in-react
-        // ütle, et message is sent && refresh the page
+        // ütle, et message is sent && refresh the page!!!
+        // in successful log-in, sends to main page //NOT allowed - refreshes the pge
       })
       .catch (err => {
-        console.log (err);
+        this.setState ({error: err.response.data.message});
+        console.log (err.response.data);
       });
   };
 
@@ -36,46 +49,46 @@ class Login extends Component {
       <React.Fragment>
         <div className="pd-top">
           <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
-          <main class="login-form">
-            <div class="cotainer">
-              <div class="row justify-content-center">
-                <div class="col-md-8">
-                  <div class="card">
-                    <div class="card-header">LOG IN</div>
-                    <div class="card-body">
+          <main className="login-form">
+            <div className="cotainer">
+              <div className="row justify-content-center">
+                <div className="col-md-8">
+                  <div className="card">
+                    <div className="card-header">LOG IN</div>
+                    <div className="card-body">
                       <form onSubmit={this.handleFormSubmit}>
-                        <div class="form-group row">
+                        <div className="form-group row">
                           <label
-                            for="email_address"
-                            class="col-md-4 col-form-label text-md-right"
+                            htmlFor="email_address"
+                            className="col-md-4 col-form-label text-md-right"
                           >
                             E-Mail Address
                           </label>
-                          <div class="col-md-6">
+                          <div className="col-md-6">
                             <input
                               type="text"
                               id="email_address"
-                              class="form-control"
+                              className="form-control"
                               name="email_address"
                               required
-                              autofocus
+                              autoFocus
                               onChange={e => this.handleEntry (e)}
                             />
                           </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div className="form-group row">
                           <label
-                            for="password"
-                            class="col-md-4 col-form-label text-md-right"
+                            htmlFor="password"
+                            className="col-md-4 col-form-label text-md-right"
                           >
                             Password
                           </label>
-                          <div class="col-md-6">
+                          <div className="col-md-6">
                             <input
                               type="password"
                               id="password"
-                              class="form-control"
+                              className="form-control"
                               name="password"
                               required
                               onChange={e => this.handleEntry (e)}
@@ -83,9 +96,13 @@ class Login extends Component {
                           </div>
                         </div>
 
-                        <div class="form-group row">
-                          <div class="col-md-6 offset-md-4">
-                            <div class="checkbox">
+                        {/* ERROR messge: */}
+                        <div className="text-danger text-uppercase">
+                          {this.state.error ? <p>{this.state.error}</p> : ''}
+                        </div>
+                        <div className="form-group row">
+                          <div className="col-md-6 offset-md-4">
+                            <div className="checkbox">
                               <label>
                                 <input type="checkbox" name="remember" />
                                 {' '}
@@ -95,13 +112,13 @@ class Login extends Component {
                           </div>
                         </div>
 
-                        <div class="col-md-6 offset-md-4">
-                          <button type="submit" class="btn btn-primary">
+                        <div className="col-md-6 offset-md-4">
+                          <button type="submit" className="btn btn-primary">
                             Log in
                           </button>
-                          <a href="#" class="btn btn-link">
-                            Dont't have account yet?
-                          </a>
+                          <Link to="#" className="btn btn-link">
+                            Don't have account yet?
+                          </Link>
                         </div>
                       </form>
                     </div>

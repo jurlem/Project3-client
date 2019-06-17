@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import {Link} from 'react-router-dom';
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+// import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
 // import './Signup.css';
 
 class Signup extends Component {
-  state = {};
+  state = {
+    first_name: '',
+    email_address: '',
+    phone_number: '',
+    premium: '',
+    password: '',
+    error: '',
+  };
 
   handleEntry = e => {
     console.log (e.target.value);
@@ -14,17 +22,18 @@ class Signup extends Component {
   };
 
   handleFormSubmit = e => {
-    console.log ('console.logging the state ', this.state);
+    //console.log ('console.logging the state ', this.state);
     e.preventDefault ();
     axios
       .post ('http://localhost:6001/auth/signup', this.state)
       .then (response => {
-        console.log (response);
+        console.log ('This comes back from auth/create:', response);
         //https://www.lullabot.com/articles/processing-forms-in-react
         // ütle, et message is sent && refresh the page
       })
       .catch (err => {
-        console.log (err);
+        this.setState ({error: err.response.data.message});
+        console.log (err.response.data);
       });
   };
 
@@ -40,18 +49,17 @@ class Signup extends Component {
               <h4 class="card-title mt-3 text-center">Create Account</h4>
               <p class="text-center">Get started with your free account</p>
               <p>
-                {/* <a href="" class="btn btn-block btn-twitter"> */}
-                <i class="fab fa-twitter" /> Login via Twitter
-                {/* </a> */}
+                {/* <Link to="" class="btn btn-block btn-twitter"> */}
+                {/* <i class="fab fa-twitter" /> Login via Twitter */}
+                {/* </Link> */}
                 {/* <a to="" class="btn btn-block btn-facebook">
                     {' '}
                     <i class="fab fa-facebook-f" /> Login via facebook
                   </a> */}
               </p>
-              <p class="divider-text">
+              {/* <p class="divider-text">
                 <span class="bg-light">OR</span>
-              </p>
-
+              </p> */}
               <form onSubmit={this.handleFormSubmit}>
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
@@ -107,7 +115,7 @@ class Signup extends Component {
                     onChange={e => this.handleEntry (e)}
                   />
                 </div>
-                {/* <!-- form-group// --> */} */}
+                {/* <!-- form-group// --> */}
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -156,16 +164,20 @@ class Signup extends Component {
                     onChange={e => this.handleEntry (e)}
                   />
                 </div>
+                {/* ERROR messge: */}
+                <div className="text-danger text-uppercase">
+                  {this.state.error ? <p>{this.state.error}</p> : ''}
+                </div>
+
                 {/* <!-- form-group// -->                                       */}
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-block">
-                    {' '}
                     Create Account{' '}
                   </button>
                 </div>
                 {/* <!-- form-group// -->       */}
                 <p class="text-center">
-                  Have an account? <a href="">Log In</a>{' '}
+                  Have an account? <Link to="">Log In</Link>{' '}
                 </p>
               </form>
             </article>
@@ -177,12 +189,3 @@ class Signup extends Component {
   }
 }
 export default Signup;
-
-/* 
-
-//     username: String,
-//     email: String,
-//     phonenumber: String,
-//     password: String,
-//     premium: Boolean,
-//     notification: {type: String, enum: ['MAIL', 'SMS'], default: 'MAIL'}, */
