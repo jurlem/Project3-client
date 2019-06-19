@@ -5,9 +5,9 @@ class Logout extends Component {
 
   confirmLogout = () => {
     this.props.onLogout ();
-    window.location = '/login';
+    this.props.history.push ('/');
+    //window.location = '/login';
   };
-  degugger;
 
   render () {
     return (

@@ -3,6 +3,7 @@ import {NavLink, Link} from 'react-router-dom';
 import './Nav.css';
 
 const Nav = ({theUser, typeOfUser}) => {
+  console.log (theUser);
   return (
     <React.Fragment>
       <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light">

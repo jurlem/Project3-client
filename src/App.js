@@ -26,45 +26,49 @@ class App extends Component {
     });
   }
 
-  handleLogin (response) {
+  handleLogin = response => {
     try {
       localStorage.setItem ('theUser', response.data.first_name);
       localStorage.setItem ('typeOfUser', response.data.typeOfUser);
 
       this.setState ({
-        theUser: localStorage.getItem ('theUser'),
-        typeOfUser: localStorage.getItem ('typeOfUser'),
+        theUser: response.data.first_name,
+        typeOfUser: response.data.typeOfUser,
       });
     } catch (error) {
       console.log (error);
     }
-  }
+  };
 
-  handleLogout () {
+  handleLogout = () => {
     try {
       localStorage.clear ();
     } catch (error) {
       console.log (error);
     }
-  }
+  };
 
   render () {
     return (
       <React.Fragment>
-        <Nav
+        {/* <Nav
           theUser={localStorage.theUser}
           typeOfUser={localStorage.typeOfUser}
-        />
+        /> */}
+        <Nav theUser={this.state.theUser} typeOfUser={this.state.typeOfUser} />
         <main className="container">
           <Switch>
             <Route path="/signup" component={Signup} />
             <Route
               path="/Login"
-              render={routeProps => (
-                <Login {...routeProps} onLogin={this.handleLogin} />
+              render={routerProps => (
+                <Login {...routerProps} onLogin={this.handleLogin} />
               )}
             />
+            {/* // make protected routes */}
             <Route path="/" component={ReminderTool} />
+
+            />
             <Route exact path="/newreminder" component={NewReminder} />
             <Route path="/upgrade" component={Upgrade} />
             <Route path="/manage" component={Manage} />

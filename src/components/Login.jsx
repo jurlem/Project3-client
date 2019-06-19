@@ -29,15 +29,16 @@ class Login extends Component {
 
         // this.setState ({}); this desnt refresh the NAV bar
         this.props.onLogin (response);
-        window.location = '/';
+        this.props.history.push ('/');
+        // window.location = '/';
 
         //https://www.lullabot.com/articles/processing-forms-in-react
         // ütle, et message is sent && refresh the page!!!
         // in successful log-in, sends to main page //NOT allowed - refreshes the pge
       })
       .catch (err => {
-        this.setState ({error: err.response.data.message});
-        console.log (err.response.data);
+        //this.setState ({error: err.response.data.message});
+        console.log (err);
       });
   };
 

@@ -6,7 +6,13 @@ import './ReminderTool.css';
 class ReminderTool extends Component {
   state = {
     selectedDate: {},
+    theUser: '',
+    typeOfUser: '',
   };
+
+  componentDidMount () {
+    this.setState ({theUser: this.props.theUser});
+  }
 
   // comp did mount call all the reminders based on the date and user
   //axios call
