@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
+import {MyProvider, MyContext} from './components/ReactContext';
 import NewReminder from './components/NewReminder';
 import ReminderTool from './components/ReminderTool';
 import Upgrade from './components/Upgrade';
@@ -12,76 +13,47 @@ import Logout from './components/Logout';
 import NotFound from './components/NotFound';
 import Profile from './components/Profile';
 import './App.css';
+// import ReactContext from './components/ReactContext';
 
 class App extends Component {
-  state = {
-    theUser: false,
-    typeOfUser: 'USER',
-  };
-
-  componentDidMount () {
-    this.setState ({
-      theUser: localStorage.getItem ('theUser'),
-      typeOfUser: localStorage.getItem ('typeOfUser'),
-    });
-  }
-
-  handleLogin = response => {
-    try {
-      localStorage.setItem ('theUser', response.data.first_name);
-      localStorage.setItem ('typeOfUser', response.data.typeOfUser);
-
-      this.setState ({
-        theUser: response.data.first_name,
-        typeOfUser: response.data.typeOfUser,
-      });
-    } catch (error) {
-      console.log (error);
-    }
-  };
-
-  handleLogout = () => {
-    try {
-      localStorage.clear ();
-    } catch (error) {
-      console.log (error);
-    }
-  };
+  state = {};
 
   render () {
     return (
       <React.Fragment>
-        {/* <Nav
-          theUser={localStorage.theUser}
-          typeOfUser={localStorage.typeOfUser}
+
+        {/* <ReactContext
+          theUser={this.state.theUser}
+          typeOfUser={this.state.typeOfUser}
         /> */}
-        <Nav theUser={this.state.theUser} typeOfUser={this.state.typeOfUser} />
+        <Nav />
         <main className="container">
           <Switch>
             <Route path="/signup" component={Signup} />
-            <Route
-              path="/Login"
-              render={routerProps => (
-                <Login {...routerProps} onLogin={this.handleLogin} />
-              )}
-            />
-            {/* // make protected routes */}
-            <Route path="/" component={ReminderTool} />
+            <Route path="/Login" component={Login} />
+            <Route path="/logout" component={Logout} />
 
-            />
+            {/* // make protected routes */}
+
+            {/* <Route
+                exact
+                path="/"
+                render={routerProps => (
+                  <ReminderTool
+                    {...routerProps}
+                    passUser={this.state.theUser}
+                  /> */}
+            )}
             <Route exact path="/newreminder" component={NewReminder} />
             <Route path="/upgrade" component={Upgrade} />
             <Route path="/manage" component={Manage} />
             <Route path="/pay" component={PaypalButton} />
             <Route path="/profile" component={Profile} />
+            <Route exact path="/" component={ReminderTool} />
             <Route path="/nothinghere" component={NotFound} />
+
             <Redirect to="/nothinghere" />
-            <Route
-              path="/logout"
-              render={routeProps => (
-                <Logout {...routeProps} onLogout={this.handleLogout} />
-              )}
-            />
+
             {/* <Redirect from="/" exact to="/login" />
             */}
 

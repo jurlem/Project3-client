@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
+import {MyProvider} from './components/ReactContext';
+
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 // ReactDOM.render((
 //   <Router>
@@ -14,9 +16,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //   registerServiceWorker();
 
 ReactDOM.render (
-  <Router>
-    <App />
-  </Router>,
+  <MyProvider>
+
+    <Router>
+      <App />
+    </Router>
+  </MyProvider>,
   document.getElementById ('root')
 );
 

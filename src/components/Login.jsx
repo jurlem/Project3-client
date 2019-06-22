@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {MyContext} from './ReactContext';
 
 class Login extends Component {
   state = {
@@ -20,30 +21,25 @@ class Login extends Component {
   handleFormSubmit = e => {
     e.preventDefault ();
     axios
-      .post ('http://localhost:6001/auth/login', this.state)
+      .post ('http://localhost:6001/auth/login', this.state, {
+        withCredentials: true,
+      })
       .then (response => {
         console.log ('This comes back from auth/login:', response.data);
 
-        // localStorage.setItem ('theUser', response.data.first_name);
-        // localStorage.setItem ('typeOfUser', response.data.typeOfUser);
-
-        // this.setState ({}); this desnt refresh the NAV bar
-        this.props.onLogin (response);
+        //const context = useContext (MyContext);
+        // handle login from  CONTEXT
+        this.context.handleLogin (response);
         this.props.history.push ('/');
-        // window.location = '/';
 
         //https://www.lullabot.com/articles/processing-forms-in-react
         // ütle, et message is sent && refresh the page!!!
-        // in successful log-in, sends to main page //NOT allowed - refreshes the pge
       })
       .catch (err => {
         //this.setState ({error: err.response.data.message});
         console.log (err);
       });
   };
-
-  // ADD: validateInput faction onChange handler for my form
-  // https://goshakkk.name/submit-time-validation-react/
 
   render () {
     return (
@@ -134,5 +130,7 @@ class Login extends Component {
     );
   }
 }
+
+Login.contextType = MyContext;
 
 export default Login;

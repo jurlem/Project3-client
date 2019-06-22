@@ -30,6 +30,7 @@ class Signup extends Component {
         console.log ('This comes back from auth/create:', response);
         //https://www.lullabot.com/articles/processing-forms-in-react
         // ütle, et message is sent && refresh the page
+        this.props.history.push ('/login');
       })
       .catch (err => {
         this.setState ({error: err.response.data.message});

@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {MyContext} from './ReactContext';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import './Reminders.css';
 
 class Reminders extends Component {
   state = {
-    selectedDate: '',
+    selectedDay: '',
     reminders: [],
   };
 
   componentDidMount () {
+    console.log ('console.log this.context', this.context.state.userId);
+    const userId = this.context.state.userId;
     axios
-      .get ('http://localhost:6001/reminders/get')
+      .get (`http://localhost:6001/reminders/get?id=${userId}`)
       .then (result => {
-        console.log ('LOGGING GET from react ', result.data);
+        console.log ('LOGGING GET from reminders/Get ', result.data);
         this.setState ({reminders: result.data});
       })
       .catch (err => {
@@ -43,62 +46,45 @@ class Reminders extends Component {
   };
 
   // *** get results starting from today!!
-  // ***  if selectedDate = something, then show only those
+  // ***  if selectedDay = something, then show only those
   // *** get only User reminders
-
-  // if (this.state.selectedDate) {
-  //   axios
-  //     .get ('http://localhost:6000/get') // my user && selectedDate
-  //     .then (result => {
-  //       console.log ('LOGGING GET from react ', result);
-  //       this.setState ({reminders: result});
-  //     })
-  //     .catch (err => {
-  //       console.log (err);
-  //     });
-  // }
-  //   else {
-  //     axios
-  //       .get ('/getreminders') // my user && from today
-  //       .then (result => {
-  //         console.log (result);
-  //         this.setState ({reminders: result});
-  //       })
-  //       .catch (err => {
-  //         console.log (err);
-  //       });
-  //   }
-  // }
 
   render () {
     return (
-      <React.Fragment>
-        <div className="reminder">
-          <h2>Reminders Compoment</h2>
-          <div className="container">
+      <MyContext.Consumer>
+        {context => (
+          <React.Fragment>
+            <p>{context.state.userId}</p>
+            <div className="reminder">
+              <h2>Reminders Compoment</h2>
+              <div className="container">
 
-            {this.state.reminders.map ((reminder, index) => {
-              return (
-                <div key={reminder._id}>
-                  <p> {reminder.time}</p>
-                  <p> {reminder.date}</p>
-                  <p> {reminder.text}</p>
-                  <p> {reminder.remindMe}</p>
-                  <p> {reminder.gridRadios}</p>
-                  <FontAwesomeIcon
-                    icon={faTrash}
-                    onClick={() => this.handleDelete (reminder._id)}
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
-        </div>
+                {this.state.reminders.map ((reminder, index) => {
+                  return (
+                    <div key={reminder._id}>
+                      <p> {reminder.time}</p>
+                      <p> {reminder.date}</p>
+                      <p> {reminder.text}</p>
+                      <p> {reminder.remindMe}</p>
+                      <p> {reminder.gridRadios}</p>
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        onClick={() => this.handleDelete (reminder._id)}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+            </div>
 
-      </React.Fragment>
+          </React.Fragment>
+        )}
+      </MyContext.Consumer>
     );
   }
 }
+
+Reminders.contextType = MyContext;
 
 export default Reminders;
