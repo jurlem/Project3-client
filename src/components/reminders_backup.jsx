@@ -50,46 +50,33 @@ class Reminders extends Component {
   // *** get only User reminders
 
   render () {
-    if (this.state.reminders.length === 0)
-      return <p>There are no reminders in the database.</p>;
     return (
       <MyContext.Consumer>
         {context => (
           <React.Fragment>
-            <h2>Reminders </h2>
-            <br />
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Remind me at</th>
-                  <th>Text</th>
-                  <th>email/sms</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
+            <p>{context.state.userId}</p>
+            <div className="reminder">
+              <h2>Reminders Compoment</h2>
+              <div className="container">
+
                 {this.state.reminders.map ((reminder, index) => {
                   return (
-                    <tr key={reminder._id}>
-                      <td> {reminder.time} {reminder.date}</td>
-                      <td> {reminder.remindMe}</td>
-                      {/* <td> {reminder.date}</td> */}
-                      <td> {reminder.text}</td>
-                      <td> {reminder.gridRadios}</td>
-                      <td>
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={() => this.handleDelete (reminder._id)}
-                        />
-                      </td>
-                    </tr>
+                    <div key={reminder._id}>
+                      <p> {reminder.time}</p>
+                      <p> {reminder.date}</p>
+                      <p> {reminder.text}</p>
+                      <p> {reminder.remindMe}</p>
+                      <p> {reminder.gridRadios}</p>
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        onClick={() => this.handleDelete (reminder._id)}
+                      />
+                    </div>
                   );
                 })}
-              </tbody>
-            </table>
-            <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
-            <p>{context.state.userId}</p>
+              </div>
+              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+            </div>
 
           </React.Fragment>
         )}

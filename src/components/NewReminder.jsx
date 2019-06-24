@@ -22,11 +22,11 @@ class NewReminder extends Component {
       userId: this.context.state.userId,
     });
 
-    console.log (reminder);
     e.preventDefault ();
     axios
       .post ('http://localhost:6001/reminders/create', reminder)
       .then (response => {
+        console.log (reminder);
         console.log ('response from reminder response', response);
         //https://www.lullabot.com/articles/processing-forms-in-react
         // ütle, et message is sent && refresh the page
@@ -173,7 +173,7 @@ class NewReminder extends Component {
                 </fieldset>
                 <div className="form-group row">
                   <div className="col-sm-10">
-                    <button type="submit" className="btn btn-light">
+                    <button type="submit" className="btn btn-primary">
                       Create
                     </button>
                   </div>

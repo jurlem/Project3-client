@@ -57,7 +57,7 @@ class Nav extends Component {
                         </li>
                       </React.Fragment>}
 
-                  {context.state.typeOfUser === 'admin'
+                  {context.state.typeOfUser === 'ADMIN'
                     ? <React.Fragment>
                         <li className="nav-item">
                           <NavLink className="nav-link" to="/manage">

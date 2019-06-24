@@ -17,18 +17,57 @@ class Manage extends Component {
   render () {
     return (
       <React.Fragment>
-        <h1>Admin tab</h1>
         <div className="container pd-top">
-          {this.state.users.map ((user, index) => {
-            return (
-              <div key={user._id}>
-                <p>{user.first_name} </p>
-                <p>{user.email_address} </p>
-                <p>{user.phone_number} </p>
-                <p>{user.premium}</p>
-              </div>
-            );
-          })}
+          <h1>Admin tab</h1>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>user name </th>
+                <th>userId</th>
+                <th>email address</th>
+                <th>phone</th>
+                <th>type of user</th>
+                <th>email/sms</th>
+                <th>nr of reminders </th>
+
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+
+              {this.state.users.map ((user, index) => {
+                return (
+                  <tr key={user._id}>
+                    <td>{user.first_name} </td>
+                    <td>{user._id} </td>
+                    <td>{user.email_address} </td>
+                    <td>{user.phone_number} </td>
+                    <td>{user.typeOfUser}</td>
+
+                    <td>
+                      {user.premium === 'true' ? <p>SMS</p> : <p>Email</p>}
+                      {user.premium === 'true'
+                        ? <p>
+                            Yes
+                          </p>
+                        : <p>
+                            No
+                          </p>}
+                    </td>
+
+                    <td>
+                      <button className="btn btn-primary btn-sm">
+
+                        {/* onClick={() => this.handleDelete (reminder._id)} */}
+
+                        EDIT
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
 
       </React.Fragment>

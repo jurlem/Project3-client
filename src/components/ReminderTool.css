@@ -1,9 +1,14 @@
 .remindertool {
   display: inline-flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .pd-top {
   padding-top: 30vh;
+}
+
+main.container {
+  margin: 0 150px;
+  padding: 0 20px;
 }

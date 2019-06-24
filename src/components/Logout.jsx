@@ -18,7 +18,12 @@ class Logout extends Component {
               <h3>
                 Click here to confirm log out
               </h3>
-              <button onClick={context.handleLogout}> Confirm Logout</button>
+              <button
+                className="btn btn-primary"
+                onClick={context.handleLogout}
+              >
+                {' '}Confirm Logout
+              </button>
             </React.Fragment>
           )}
         </MyContext.Consumer>

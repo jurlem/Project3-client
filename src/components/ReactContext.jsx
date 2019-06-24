@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 // first we will make a new context
 const MyContext = React.createContext ();
@@ -47,7 +48,7 @@ class MyProvider extends Component {
         phone_number: response.data.phone_number,
         premium: response.data.premium,
         userId: response.data._id,
-        selectedDay: null,
+        selectedDay: response.data.selectedDay,
       });
       console.log (
         'after handleLogin setstate logging the this.state :',
@@ -76,13 +77,34 @@ class MyProvider extends Component {
     }
   };
 
-  selectedDayContext = selectedDayForContext => {
-    console.log ('console logging selectedDayContext', selectedDayForContext);
-    this.setState ({selectedDay: selectedDayForContext});
+  selectedDayContext = selectedDay => {
+    console.log ('console logging selectedDayContext', selectedDay);
+    this.setState (prevState => ({...prevState, selectedDay}));
   };
   catch (error) {
     console.log (error);
   }
+
+  // shows in Reminders comp reminders per selected day
+  remindersPerDay = selectedDay => {
+    const userId = this.state.userId;
+    const date = selectedDay;
+
+    //selectedDay Into date format selectedDad.intoDate
+    axios
+      .get (
+        `http://localhost:6001/reminders/selectedday?userId=${userId}&date=${date}`
+      )
+      .then (result => {
+        console.log (date);
+        console.log ('LOGGING RESULT from reminders/USERID/DATE ', result.data);
+
+        //kuidas ma siit saan renderdada tulemust Reminders tab'i?
+      })
+      .catch (err => {
+        console.log (err);
+      });
+  };
 
   render () {
     return (
@@ -101,11 +123,12 @@ class MyProvider extends Component {
           addUserIdToState: () => {
             this.addUserIdToState ();
           },
-          selectedDayContext: () => {
-            this.selectedDayContext ();
-          },
+          selectedDayContext: this.selectedDayContext,
+          remindersPerDay: this.remindersPerDay,
         }}
       >
+        {/* </MyContext.Provider>/<MyContext.Provider value={{ state: this.state, updateReturnMessage: this.updateReturnMessage }}> */}
+        {/* https://stackoverflow.com/questions/50502664/how-to-update-the-context-value-in-provider-from-the-consumer */}
         {this.props.children}
       </MyContext.Provider>
     );

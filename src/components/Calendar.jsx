@@ -6,30 +6,42 @@ import getUserLocale from 'get-user-locale';
 import './Calendar.css';
 
 import DayPicker from 'react-day-picker';
+import Helmet from 'react-helmet';
+
 import 'react-day-picker/lib/style.css';
+
+// OR : DayPickerInput
+// import DayPickerInput from 'react-day-picker/DayPickerInput'
+
+const modifiers = {
+  birthday: new Date (2019, 5, 7),
+  // monday: {[(new Date (2019, 5, 6)), ( new Date (2019, 5, 4))]},
+
+  monday: {daysOfWeek: [1]},
+};
 
 class Calendar extends Component {
   state = {
     selectedDay: undefined,
-    today: new Date (),
+    today: new Date (2019, 5, 19),
   };
 
   onDayClick = (day, {selected}) => {
+    let selectedDayForContext;
     if (selected) {
       // Unselect the day if already selected
       this.setState ({selectedDay: undefined});
 
-      let selectedDayForContext = undefined;
       //run a method of MyContext to update the setstate in context
-      this.context.selectedDayContext (selectedDayForContext);
-
+      this.context.selectedDayContext (undefined);
       return;
     }
 
     this.setState ({selectedDay: day});
-    let selectedDayForContext = this.state.selectedDay;
-    //console.log ('logging dayClick:', selectedDayForContext);
-    this.context.selectedDayContext (selectedDayForContext);
+    // show selected day in state:
+    this.context.selectedDayContext (day);
+    // render Reminders per selected day - peab olema siin, sest Reminders'ite comp ei uuene automaatselt (?)
+    this.context.remindersPerDay (day);
   };
 
   render () {
@@ -39,19 +51,43 @@ class Calendar extends Component {
       <MyContext.Consumer>
         {context => (
           <React.Fragment>
-
             <div className="body">
               <h1>Calendar</h1>
+              <Helmet>
+                <style>{`
+          .DayPicker-Day--birthday {
+            background-color: #399fff;
+            color: white;
+          }
+          .DayPicker-Day--monday {
+            color: #399fff;
+            // #00bcd4;
+          }
+          `}</style>
+              </Helmet>
 
               <DayPicker
+                showOutsideDays
+                showWeekNumbers
+                todayButton="Go to Today"
                 onDayClick={this.onDayClick}
                 selectedDays={this.state.selectedDay}
                 firstDayOfWeek={1}
+                //for selected days:
+                modifiers={modifiers}
+                // selectedDays={[
+                //   new Date (2019, 6, 12),
+                //   new Date (2019, 6, 2),
+                //   {
+                //     after: new Date (2019, 6, 20),
+                //     before: new Date (2019, 6, 25),
+                //   },
+                // ]}
               />
 
               {this.state.selectedDay
                 ? <p>
-                    You clicked {this.state.selectedDay.toLocaleDateString ()}
+                    Selected day: {this.state.selectedDay.toLocaleDateString ()}
                   </p>
                 : <p>Choose a day</p>}
               <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
