@@ -5,10 +5,13 @@
 }
 
 .pd-top {
-  padding-top: 30vh;
+  padding-top: 20vh;
 }
 
+.pd-top-main {
+  padding-top: 18vh;
+}
 main.container {
-  margin: 0 150px;
+  margin: 0 120px;
   padding: 0 20px;
 }

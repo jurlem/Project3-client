@@ -1,14 +1,22 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import RemindersTable from './RemindersTable';
 import {MyContext} from './ReactContext';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import Pagination from '../common/pagination';
+import {paginate} from '../utils/paginate';
+
 import './Reminders.css';
 
 class Reminders extends Component {
   state = {
     selectedDay: '',
     reminders: [],
+    pageSize: 5,
+    currentPage: 1,
+  };
+
+  onPageChange = page => {
+    this.setState ({currentPage: page});
   };
 
   componentDidMount () {
@@ -50,46 +58,33 @@ class Reminders extends Component {
   // *** get only User reminders
 
   render () {
+    const {pageSize, currentPage, reminders: allReminders} = this.state;
+
     if (this.state.reminders.length === 0)
       return <p>There are no reminders in the database.</p>;
+
+    const reminders = paginate (allReminders, currentPage, pageSize);
+
     return (
       <MyContext.Consumer>
         {context => (
           <React.Fragment>
             <h2>Reminders </h2>
             <br />
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>Remind me at</th>
-                  <th>Text</th>
-                  <th>email/sms</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody>
-                {this.state.reminders.map ((reminder, index) => {
-                  return (
-                    <tr key={reminder._id}>
-                      <td> {reminder.time} {reminder.date}</td>
-                      <td> {reminder.remindMe}</td>
-                      {/* <td> {reminder.date}</td> */}
-                      <td> {reminder.text}</td>
-                      <td> {reminder.gridRadios}</td>
-                      <td>
-                        <FontAwesomeIcon
-                          icon={faTrash}
-                          onClick={() => this.handleDelete (reminder._id)}
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-            <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
-            <p>{context.state.userId}</p>
+
+            <RemindersTable
+              reminders={reminders}
+              handleDelete={this.handleDelete}
+            />
+            <Pagination
+              itemsCount={this.state.reminders.length}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.onPageChange}
+            />
+
+            {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+            <p>{context.state.userId}</p> */}
 
           </React.Fragment>
         )}

@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import Pagination from '../common/pagination';
+import {paginate} from '../utils/paginate';
+import {MyContext} from './ReactContext';
 
 class Manage extends Component {
   state = {
     users: [],
+    pageSize: 3,
+    currentPage: 1,
+  };
+
+  // into common!
+  onPageChange = page => {
+    this.setState ({currentPage: page});
   };
 
   //siin vaata Gijs'i pokemoni näidet
@@ -15,10 +25,16 @@ class Manage extends Component {
   }
 
   render () {
+    const {pageSize, currentPage, users: allUsers} = this.state;
+    const users = paginate (allUsers, currentPage, pageSize);
+
+    let nrOfUsers = this.state.users.length;
+    if (nrOfUsers === 0) return <p>There are no users in the database.</p>;
     return (
       <React.Fragment>
         <div className="container pd-top">
           <h1>Admin tab</h1>
+          <p>The number of users in the system: {nrOfUsers}</p>
           <table className="table">
             <thead>
               <tr>
@@ -28,7 +44,6 @@ class Manage extends Component {
                 <th>phone</th>
                 <th>type of user</th>
                 <th>email/sms</th>
-                <th>nr of reminders </th>
 
                 <th />
               </tr>
@@ -68,11 +83,18 @@ class Manage extends Component {
               })}
             </tbody>
           </table>
+          <Pagination
+            itemsCount={this.state.users.length}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.onPageChange}
+          />
         </div>
 
       </React.Fragment>
     );
   }
 }
+Manage.contextType = MyContext;
 
 export default Manage;

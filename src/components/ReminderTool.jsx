@@ -29,7 +29,7 @@ class ReminderTool extends Component {
     return (
       <React.Fragment>
 
-        <div className="remindertool pd-top">
+        <div className="remindertool pd-top-main">
           <Calendar theUser={this.props.theUser} />
           <Reminders />
         </div>
