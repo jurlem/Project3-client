@@ -153,21 +153,24 @@ class NewReminder extends Component {
                           EMAIL reminder notification
                         </label>
                       </div>
-                      <div className="form-check">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="gridRadios"
-                          id="gridRadios2"
-                          value="sms"
-                        />
-                        <label
-                          className="form-check-label"
-                          htmlFor="gridRadios2"
-                        >
-                          SMS reminder notification
-                        </label>
-                      </div>
+                      {context.state.premium === 'true'
+                        ? <div className="form-check">
+                            <input
+                              className="form-check-input"
+                              type="radio"
+                              name="gridRadios"
+                              id="gridRadios2"
+                              value="sms"
+                            />
+                            <label
+                              className="form-check-label"
+                              htmlFor="gridRadios2"
+                            >
+                              SMS reminder notification
+                            </label>
+                          </div>
+                        : ''}
+
                     </div>
                   </div>
                 </fieldset>

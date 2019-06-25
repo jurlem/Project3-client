@@ -54,7 +54,6 @@ class Profile extends Component {
                             <Link to="/upgrade">
                               Ugrade to activate SMS reminders!
                             </Link>
-                            }
                           </p>}
                     </td>
                     <td>

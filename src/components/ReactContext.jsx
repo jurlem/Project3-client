@@ -85,6 +85,11 @@ class MyProvider extends Component {
     console.log (error);
   }
 
+  // show updated Premium = True state in CONTEXT state:
+  updatePremiumState = () => {
+    this.setState ({premium: true});
+  };
+
   // shows in Reminders comp reminders per selected day
   remindersPerDay = selectedDay => {
     const userId = this.state.userId;

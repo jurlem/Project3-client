@@ -4,6 +4,7 @@ import RemindersTable from './RemindersTable';
 import {MyContext} from './ReactContext';
 import Pagination from '../common/pagination';
 import {paginate} from '../utils/paginate';
+import {Link} from 'react-router-dom';
 
 import './Reminders.css';
 
@@ -69,9 +70,12 @@ class Reminders extends Component {
       <MyContext.Consumer>
         {context => (
           <React.Fragment>
+
             <h2>Reminders </h2>
             <br />
-
+            {this.context.state.premium === 'false'
+              ? <Link to="/upgrade">Ugrade to activate SMS reminders!</Link>
+              : ''}
             <RemindersTable
               reminders={reminders}
               handleDelete={this.handleDelete}
