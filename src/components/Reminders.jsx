@@ -4,6 +4,7 @@ import RemindersTable from './RemindersTable';
 import {MyContext} from './ReactContext';
 import Pagination from '../common/pagination';
 import {paginate} from '../utils/paginate';
+import {convertDateToString} from '../utils/convertDateToString'
 import {Link} from 'react-router-dom';
 
 import './Reminders.css';
@@ -21,8 +22,10 @@ class Reminders extends Component {
   };
 
   componentDidMount () {
+    debugger
     // console.log ('console.log this.context', this.context.state.userId);
     const userId = this.context.state.userId;
+
     axios
       .get (`http://localhost:6001/reminders/get?id=${userId}`)
       .then (result => {
@@ -58,6 +61,29 @@ class Reminders extends Component {
   // ***  if selectedDay = something, then show only those
   // *** get only User reminders
 
+  
+
+  renderReminderComponent = () => {
+    const reminders = [...this.state.reminders];
+    const selectedDay = this.context.state.selectedDay;
+    // selectedDay should not be a string.
+    const showReminder = (!selectedDay || selectedDay === "undefined" ) ? reminders : 
+      reminders.filter(reminder => convertDateToString(reminder.date) === convertDateToString(selectedDay));
+
+      return (
+        <RemindersTable
+          reminders={showReminder}
+          handleDelete={this.handleDelete}
+        />
+      );
+  }
+
+
+  componentDidUpdate(prevProps, prevState){
+    debugger;
+  }
+
+   
   render () {
     const {pageSize, currentPage, reminders: allReminders} = this.state;
 
@@ -70,16 +96,17 @@ class Reminders extends Component {
       <MyContext.Consumer>
         {context => (
           <React.Fragment>
-
             <h2>Reminders </h2>
             <br />
             {this.context.state.premium === 'false'
               ? <Link to="/upgrade">Ugrade to activate SMS reminders!</Link>
               : ''}
-            <RemindersTable
-              reminders={reminders}
-              handleDelete={this.handleDelete}
-            />
+            {/* {!context.state.selectedDay &&
+              <RemindersTable
+                reminders={reminders}
+                handleDelete={this.handleDelete}
+              />} */}
+              {this.renderReminderComponent()}
             <Pagination
               itemsCount={this.state.reminders.length}
               pageSize={pageSize}

@@ -33,16 +33,20 @@ class Calendar extends Component {
       this.setState ({selectedDay: undefined});
 
       //run a method of MyContext to update the setstate in context
+      debugger
       this.context.selectedDayContext (undefined);
       return;
     }
 
     this.setState ({selectedDay: day});
-    // show selected day in state:
+    // show selected day in context state:
     this.context.selectedDayContext (day);
+
     // render Reminders per selected day - peab olema siin, sest Reminders'ite comp ei uuene automaatselt (?)
-    this.context.remindersPerDay (day);
+    // this.context.remindersPerDay (day);
   };
+
+  
 
   render () {
     const locale = getUserLocale ();

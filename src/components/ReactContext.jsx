@@ -14,8 +14,10 @@ class MyProvider extends Component {
   checkUser = () => {
     console.log ('checking user from state');
     console.log (this.state.theUser);
+    debugger
     //7check if there is a state in context, if not võta Localstoragest  ja pane see setStte'ga
     if (!this.state.theUser) {
+      debugger
       this.setState ({
         theUser: localStorage.getItem ('theUser'),
         typeOfUser: localStorage.getItem ('typeOfUser'),
@@ -92,17 +94,20 @@ class MyProvider extends Component {
 
   // shows in Reminders comp reminders per selected day
   remindersPerDay = selectedDay => {
-    const userId = this.state.userId;
     const date = selectedDay;
+    const userId = this.context.state.userId;
 
     //selectedDay Into date format selectedDad.intoDate
-    axios
-      .get (
-        `http://localhost:6001/reminders/selectedday?userId=${userId}&date=${date}`
-      )
+    axios.get ()//   username: 'Batman', //   password: '12345', // {
+    // }
+    `http://localhost:6001/reminders/selectedday, {userId=${userId}, date=${date}`
+      // `http://localhost:6001/reminders/selectedday?userId=${userId}&date=${date}`
       .then (result => {
         console.log (date);
-        console.log ('LOGGING RESULT from reminders/USERID/DATE ', result.data);
+        console.log (
+          'LOGGING RESULT from reminders/selecctedday/USERID/DATE ',
+          result.data
+        );
 
         //kuidas ma siit saan renderdada tulemust Reminders tab'i?
       })
