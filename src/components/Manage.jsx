@@ -11,7 +11,7 @@ class Manage extends Component {
     currentPage: 1,
   };
 
-  // into common!
+  // into common!?
   onPageChange = page => {
     this.setState ({currentPage: page});
   };
@@ -50,7 +50,7 @@ class Manage extends Component {
             </thead>
             <tbody>
 
-              {this.state.users.map ((user, index) => {
+              {users.map ((user, index) => {
                 return (
                   <tr key={user._id}>
                     <td>{user.first_name} </td>
@@ -60,8 +60,7 @@ class Manage extends Component {
                     <td>{user.typeOfUser}</td>
 
                     <td>
-                      {user.premium === 'true' ? <p>SMS</p> : <p>Email</p>}
-                      {user.premium === 'true'
+                      {user.premium === true
                         ? <p>
                             Yes
                           </p>

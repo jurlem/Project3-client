@@ -8,10 +8,15 @@ class Nav extends Component {
 
   componentDidMount () {
     // set user to context (checkUser)
+    // const userId = this.context.state.userId ? this.context.state.userId : localStorage.getItem ('userId');
+
     this.context.checkUser ();
   }
 
   render () {
+    const userId = this.context.state.userId
+      ? this.context.state.userId
+      : localStorage.getItem ('userId');
     return (
       <MyContext.Consumer>
         {context => (
@@ -47,7 +52,7 @@ class Nav extends Component {
                         </li>
                         <li className="nav-item">
                           <NavLink className="nav-link" to="/upgrade">
-                            Uprade
+                            Upgrade
                           </NavLink>
                         </li>
                         <li className="nav-item">

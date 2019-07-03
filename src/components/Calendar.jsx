@@ -13,17 +13,10 @@ import 'react-day-picker/lib/style.css';
 // OR : DayPickerInput
 // import DayPickerInput from 'react-day-picker/DayPickerInput'
 
-const modifiers = {
-  birthday: new Date (2019, 5, 7),
-  // monday: {[(new Date (2019, 5, 6)), ( new Date (2019, 5, 4))]},
-
-  monday: {daysOfWeek: [1]},
-};
-
 class Calendar extends Component {
   state = {
     selectedDay: undefined,
-    today: new Date (2019, 5, 19),
+    today: new Date (),
   };
 
   onDayClick = (day, {selected}) => {
@@ -33,7 +26,7 @@ class Calendar extends Component {
       this.setState ({selectedDay: undefined});
 
       //run a method of MyContext to update the setstate in context
-      debugger
+      debugger;
       this.context.selectedDayContext (undefined);
       return;
     }
@@ -46,7 +39,17 @@ class Calendar extends Component {
     // this.context.remindersPerDay (day);
   };
 
-  
+  modifier = () => {
+    const allDaysHighlighted = this.props.reminders.map (
+      reminder => new Date (reminder.date)
+    );
+    return {
+      // birthday: new Date (2019, 5, 7),
+      // monday: {[(new Date (2019, 5, 6)), ( new Date (2019, 5, 4))]},
+
+      highlighted: allDaysHighlighted,
+    };
+  };
 
   render () {
     const locale = getUserLocale ();
@@ -63,7 +66,7 @@ class Calendar extends Component {
             background-color: #399fff;
             color: white;
           }
-          .DayPicker-Day--monday {
+          .DayPicker-Day--highlighted {
             color: #399fff;
             // #00bcd4;
           }
@@ -78,7 +81,7 @@ class Calendar extends Component {
                 selectedDays={this.state.selectedDay}
                 firstDayOfWeek={1}
                 //for selected days:
-                modifiers={modifiers}
+                modifiers={this.modifier ()}
                 // selectedDays={[
                 //   new Date (2019, 6, 12),
                 //   new Date (2019, 6, 2),

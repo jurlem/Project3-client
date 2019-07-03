@@ -12,14 +12,17 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import NotFound from './components/NotFound';
 import Profile from './components/Profile';
+import ProfileEdit from './components/ProfileEdit';
+import RemindersEdit from './components/RemindersEdit';
+import ProtectedRoute from './common/ProtectedRoute';
 
 import './App.css';
-// import ReactContext from './components/ReactContext';
 
 class App extends Component {
   state = {};
 
   render () {
+    const {theUser, typeOfUser} = this.context.state;
     return (
       <MyContext.Consumer>
         {context => (
@@ -31,19 +34,8 @@ class App extends Component {
                 <Route path="/Login" component={Login} />
                 <Route path="/logout" component={Logout} />
 
-                {/* <Route
-                exact
-                path="/"
-                render={routerProps => (
-                  <ReminderTool
-                    {...routerProps}
-                    passUser={this.state.theUser}
-                  /> */}
-                )}
-
                 {/* protected ADMIN route * EI TÖÖTA!!*/}
                 <Route path="/manage" component={Manage} />
-
                 {/* <Route
                   path="/manage"
                   render={props => {
@@ -53,45 +45,23 @@ class App extends Component {
                   }}
                 />; */}
 
-                {/* // make PROTECTED USER routes */}
-                <Route
-                  path="/newreminder"
-                  render={props => {
-                    if (!context.state.theUser) return <Redirect to="/login" />;
-                    return <NewReminder {...props} />;
-                  }}
-                />;
-                <Route
-                  path="/upgrade"
-                  render={props => {
-                    if (!context.state.theUser) return <Redirect to="/login" />;
-                    return <Upgrade {...props} />;
-                  }}
-                />;
+                <Route path="/newreminder" component={NewReminder} />
+                <Route path="/upgrade" component={Upgrade} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/profileedit" component={ProfileEdit} />
+                <Route path="/remindersedit" component={RemindersEdit} />
 
-                <Route
-                  path="/profile"
-                  render={props => {
-                    if (!context.state.theUser) return <Redirect to="/login" />;
-                    return <Profile {...props} />;
-                  }}
-                />;
+                {/* // make PROTECTED USER routes - creates trouble */}
+
+                {/* <ProtectedRoute path="/newreminder" component={NewReminder} />;
+                <ProtectedRoute path="/upgrade" component={Upgrade} />;
+                <ProtectedRoute path="/profile" component={Profile} />; */}
+                {/* <ProtectedRoute path="/profileedit" component={ProfileEdit} />; */}
 
                 <Route exact path="/" component={ReminderTool} />
                 <Route path="/pay" component={PaypalButton} />
                 <Route path="/nothinghere" component={NotFound} />
-
                 <Redirect to="/nothinghere" />
-
-                {/* <Redirect from="/" exact to="/login" />
-            */}
-
-                {/* <Route
-            exact
-            path="/login"
-            render={() =>
-              theUser ? <Redirect to="/login" /> : <ReminderTool />}
-          /> */}
 
               </Switch>
             </main>

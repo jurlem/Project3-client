@@ -30,13 +30,13 @@ class Login extends Component {
         //const context = useContext (MyContext);
         // handle login from  CONTEXT
         this.context.handleLogin (response);
-        this.props.history.push ('/');
+        this.props.history.replace ('/');
 
         //https://www.lullabot.com/articles/processing-forms-in-react
         // ütle, et message is sent && refresh the page!!!
       })
       .catch (err => {
-        //this.setState ({error: err.response.data.message});
+        this.setState ({error: err.response.data.message});
         console.log (err);
       });
   };

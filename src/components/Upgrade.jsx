@@ -3,16 +3,10 @@ import axios from 'axios';
 import {MyContext} from './ReactContext';
 import PaypalButton from './PaypalButton';
 
-const CLIENT = {
-  sandbox: process.env.REACT_APP_PAYPAL_CLIENT_ID_SANDBOX,
-  production: process.env.REACT_APP_PAYPAL_CLIENT_ID_PRODUCTION,
-};
-// console.log (CLIENT);
-
-const ENV = process.env.NODE_ENV === 'production' ? 'production' : 'sandbox';
-
 class Upgrade extends Component {
   state = {};
+
+  componentDidMount () {}
 
   onUpgrade = () => {
     const id = this.context.state.userId;
@@ -30,18 +24,16 @@ class Upgrade extends Component {
   };
 
   render () {
-    // const onSuccess = payment => console.log ('Successful payment!', payment);
-    // const onError = error =>
-    //   console.log ('Erroneous payment OR failed to load script!', error);
-    // const onCancel = data => console.log ('Cancelled payment!', data);
-
+    const premium = this.context.state.premium
+      ? this.context.state.premium
+      : localStorage.getItem ('premium');
     return (
       <React.Fragment>
         <div className="pd-top">
 
-          {this.context.state.premium === 'false'
+          {premium === false
             ? <React.Fragment>
-                <h1>Uprage to SMS-Reminder!</h1>
+                <h1>Upgrade to SMS-Reminder!</h1>
                 <p>
                   To be able to receive notifications via sms, upgrade to PREMIUM:
                   <br />
@@ -59,21 +51,8 @@ class Upgrade extends Component {
                   type="button"
                   className="btn btn-lg btn-primary"
                 >
-                  Uprage my account
+                  Upgrade my account
                 </button>
-                <div>
-                  {/* <PaypalButton
-                    // client={CLIENT}
-                    // env={ENV}
-                    // commit={true}
-                    // currency={'EUR'}
-                    // total={100}
-                    // onSuccess={onSuccess}
-                    // onError={onError}
-                    // onCancel={onCancel}
-                    onClick={this.onUpgrade}
-                  /> */}
-                </div>
               </React.Fragment>
             : <p>You have activated SMS Notification for monthly fee</p>}
 

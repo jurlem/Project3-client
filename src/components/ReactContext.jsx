@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {convertDataType} from '../utils/convertDataType.js';
 
 // first we will make a new context
 const MyContext = React.createContext ();
@@ -11,13 +12,14 @@ class MyProvider extends Component {
   };
 
   componentDidMount () {}
+
   checkUser = () => {
     console.log ('checking user from state');
     console.log (this.state.theUser);
-    debugger
+    // debugger;
     //7check if there is a state in context, if not võta Localstoragest  ja pane see setStte'ga
     if (!this.state.theUser) {
-      debugger
+      // debugger;
       this.setState ({
         theUser: localStorage.getItem ('theUser'),
         typeOfUser: localStorage.getItem ('typeOfUser'),
@@ -26,7 +28,7 @@ class MyProvider extends Component {
         phone_number: localStorage.getItem ('phone_number'),
         premium: localStorage.getItem ('premium'),
         userId: localStorage.getItem ('userId'),
-        selectedDay: localStorage.getItem ('selectedDay'),
+        selectedDay: convertDataType (localStorage.getItem ('selectedDay')),
       });
     }
   };
@@ -41,7 +43,6 @@ class MyProvider extends Component {
       localStorage.setItem ('premium', response.data.premium);
       localStorage.setItem ('userId', response.data._id);
       localStorage.setItem ('selectedDay', response.selectedDay);
-
       this.setState ({
         theUser: response.data.first_name,
         typeOfUser: response.data.typeOfUser,
@@ -98,9 +99,8 @@ class MyProvider extends Component {
     const userId = this.context.state.userId;
 
     //selectedDay Into date format selectedDad.intoDate
-    axios.get ()//   username: 'Batman', //   password: '12345', // {
-    // }
-    `http://localhost:6001/reminders/selectedday, {userId=${userId}, date=${date}`
+    axios.get ()`http://localhost:6001/reminders/selectedday, {userId=${/* } //   username: 'Batman', //   password: '12345', // {*/
+    userId}, date=${date}`
       // `http://localhost:6001/reminders/selectedday?userId=${userId}&date=${date}`
       .then (result => {
         console.log (date);
@@ -135,6 +135,7 @@ class MyProvider extends Component {
           },
           selectedDayContext: this.selectedDayContext,
           remindersPerDay: this.remindersPerDay,
+          updatePremiumState: this.updatePremiumState,
         }}
       >
         {/* </MyContext.Provider>/<MyContext.Provider value={{ state: this.state, updateReturnMessage: this.updateReturnMessage }}> */}

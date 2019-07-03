@@ -1,61 +1,59 @@
 import React, {Component} from 'react';
 import {MyContext} from './ReactContext';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
-class NewReminder extends Component {
-  state = {};
+class RemindersEdit extends Component {
+  state = {
+    // _id: this.props.state.userId,
 
-  componentDidMount () {
-    console.log (this.context);
-  }
+    first_name: this.context.state.first_name,
+    email_address: this.context.state.email_address,
+    phone_number: this.context.state.phone_number,
+  };
 
   handleEntry = e => {
     console.log (e.target.value);
     let {name, value} = e.target;
     this.setState ({[name]: value});
+    // defaultValue ?
   };
 
   handleFormSubmit = e => {
-    console.log (this.context);
-
-    //adding userId to the state obj
-    const reminder = Object.assign ({}, this.state, {
-      userId: this.context.state.userId,
-    });
-
     e.preventDefault ();
+    let _id = this.context.state.userId;
     axios
-      .post ('http://localhost:6001/reminders/create', reminder)
+      .post (
+        `http://localhost:6001/users/remindersedit`,
+        this.state
+        // {
+        //   withCredentials: true,
+        // }
+      )
       .then (response => {
-        console.log (reminder);
-        console.log ('response from reminder response', response);
-        //https://www.lullabot.com/articles/processing-forms-in-react
-        // ütle, et message is sent && refresh the page
-        //{message: reminder saved!}
-        //this.context. ();
+        console.log ('This comes back from remindersedit:', response.data);
+        //update context state:
+        // this.context.handleLogin (response);
+
         this.props.history.push ('/');
       })
       .catch (err => {
+        this.setState ({error: err.response.message});
         console.log (err);
       });
   };
 
-  // ADD: validateInput faction onChange handler for my form
-  // https://goshakkk.name/submit-time-validation-react/
-
   render () {
+    // const userId = this.context.state.userId;
     return (
       <MyContext.Consumer>
         {context => (
           <React.Fragment>
+
+            {/* FORM */}
             <div className="pd-top">
-              <h1>{context.state.userId}</h1>
-              <h2>{this.state.userId}</h2>
-
-              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
-              <h1>New Reminder</h1>
+              <h1>Edit Your Reminder</h1>
             </div>
-
             <div>
               <form onSubmit={this.handleFormSubmit}>
 
@@ -65,6 +63,7 @@ class NewReminder extends Component {
                   </label>
                   <div className="col-sm-10">
                     <input
+                      defaultValue={context.state.email_address}
                       type="datetime-local"
                       name="date"
                       className="form-control"
@@ -74,22 +73,6 @@ class NewReminder extends Component {
                     />
                   </div>
                 </div>
-                {/* Time field alone is not needed */}
-                {/* <div className="form-group row">
-                  <label htmlFor="time" className="col-sm-2 col-form-label">
-                    Time
-                  </label>
-                  <div className="col-sm-10">
-                    <input
-                      type="time"
-                      name="time"
-                      className="form-control"
-                      id="time"
-                      placeholder="10:00"
-                      onChange={e => this.handleEntry (e)}
-                    />
-                  </div>
-                </div> */}
 
                 {/* Remind me  */}
                 <div className="form-group row">
@@ -117,6 +100,7 @@ class NewReminder extends Component {
                     </select>
                   </div>
                 </div>
+
                 {/* Text field */}
                 <div className="form-group row">
                   <label htmlFor="text" className="col-sm-2 col-form-label">
@@ -182,12 +166,14 @@ class NewReminder extends Component {
                 <div className="form-group row">
                   <div className="col-sm-10">
                     <button type="submit" className="btn btn-primary">
-                      Create
+                      Submit EDIT
                     </button>
                   </div>
                 </div>
               </form>
             </div>
+
+            <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
 
           </React.Fragment>
         )}
@@ -195,7 +181,6 @@ class NewReminder extends Component {
     );
   }
 }
+RemindersEdit.contextType = MyContext;
 
-NewReminder.contextType = MyContext;
-
-export default NewReminder;
+export default RemindersEdit;

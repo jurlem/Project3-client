@@ -5,11 +5,16 @@ import _ from 'lodash';
 const Pagination = props => {
   const {pageSize, itemsCount, currentPage, onPageChange} = props;
   console.log (currentPage);
-  //.ceil method rounds up to integer:
+
+  //.ceil method rounds up to integer (from floating point):
   const pagesCount = Math.ceil (itemsCount / pageSize);
+
   // show a range of pages with underschore.range methode(from, to)
   const pages = _.range (1, pagesCount + 1);
+
+  // if only 1 page, dont render pagination: // edge case
   if (pagesCount === 1) return null;
+
   return (
     <nav>
       <ul className="pagination">
@@ -28,6 +33,7 @@ const Pagination = props => {
     </nav>
   );
 };
+// to avoid bugs in input of pagination
 Pagination.propTypes = {
   pageSize: PropTypes.number.isRequired,
   itemsCount: PropTypes.number.isRequired,

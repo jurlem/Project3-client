@@ -6,7 +6,7 @@ class Logout extends Component {
 
   confirmLogout = () => {
     this.context.handleLogout ();
-    this.props.history.push ('/');
+    this.props.history.replace ('/login');
   };
 
   render () {
@@ -18,10 +18,7 @@ class Logout extends Component {
               <h3>
                 Click here to confirm log out
               </h3>
-              <button
-                className="btn btn-primary"
-                onClick={context.handleLogout}
-              >
+              <button className="btn btn-primary" onClick={this.confirmLogout}>
                 {' '}Confirm Logout
               </button>
             </React.Fragment>

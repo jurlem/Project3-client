@@ -20,6 +20,9 @@ class Profile extends Component {
   }
 
   render () {
+    const userId = this.context.state.userId
+      ? this.context.state.userId
+      : localStorage.getItem ('userId');
     return (
       <MyContext.Consumer>
         {context => (
@@ -57,17 +60,20 @@ class Profile extends Component {
                           </p>}
                     </td>
                     <td>
-                      <button className="btn btn-primary btn-sm">
+                      <Link
+                        to="/profileedit"
+                        className="btn btn-primary btn-sm"
+                      >
                         {/* {' '}// onClick={() => //this.handleDelete ()} */}
                         Edit contact details
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 </tbody>
               </table>
 
               {this.context.state.premium === 'false'
-                ? <Link>Ugrade to activate SMS reminders!</Link>
+                ? <Link to="upgrade">Ugrade to activate SMS reminders!</Link>
                 : ''}
 
               <br /><br />
