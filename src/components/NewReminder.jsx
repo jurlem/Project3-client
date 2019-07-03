@@ -5,8 +5,20 @@ import axios from 'axios';
 class NewReminder extends Component {
   state = {};
 
+  componentDidUpdate (prevProps, prevState) {
+    if (this.context.state.premium !== prevState.premium) {
+      // Whatever storage mechanism you end up deciding to use.
+      localStorage.getItem ('premium');
+    }
+  }
+
   componentDidMount () {
+    // const premium = this.context.state.premium
+    //   ? this.context.state.premium
+    //   : localStorage.getItem ('premium');
+
     console.log (this.context);
+    console.log ('logging PREMIUM newreminder', this.context.state.premium);
   }
 
   handleEntry = e => {
@@ -158,7 +170,7 @@ class NewReminder extends Component {
                           EMAIL reminder notification
                         </label>
                       </div>
-                      {context.state.premium === 'true'
+                      {context.state.premium === true
                         ? <div className="form-check">
                             <input
                               className="form-check-input"
@@ -175,7 +187,6 @@ class NewReminder extends Component {
                             </label>
                           </div>
                         : ''}
-
                     </div>
                   </div>
                 </fieldset>

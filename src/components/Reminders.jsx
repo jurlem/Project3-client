@@ -32,13 +32,15 @@ class Reminders extends Component {
       console.log (remindersConverted);
     });
 
-    // siia tee filter et näidatavd reminders => new Date()
+    // Display here only reminders > new Date()
     reminders = reminders.filter (reminder => {
       let rDate = new Date (reminder.date);
       let now = new Date ();
       return rDate > now;
     });
+
     const selectedDay = this.context.state.selectedDay;
+
     const showReminder = !selectedDay
       ? reminders
       : this.props.reminders.filter (
@@ -47,15 +49,13 @@ class Reminders extends Component {
             convertDateToString (selectedDay)
         );
     // this.props.reminders.filter(reminder => convertDateToString(reminder.date) === convertDateToString(selectedDay));
-    debugger;
     return (
       <RemindersTable
         reminders={showReminder}
         handleDelete={this.props.handleDelete}
-        handleEditReminder={this.props.handleEditReminder}
         // allReminders={this.state.reminders}
-        // currentPage={this.state.currentPage}
-        // pageSize={this.state.pageSize}
+        currentPage={this.state.currentPage}
+        pageSize={this.state.pageSize}
       />
     );
   };
@@ -75,9 +75,9 @@ class Reminders extends Component {
           <React.Fragment>
             <h2>Reminders </h2>
             <br />
-            {this.context.state.premium === 'false'
-              ? <Link to="/upgrade">Ugrade to activate SMS reminders!</Link>
-              : ''}
+            {this.context.state.premium === true
+              ? ''
+              : <Link to="/upgrade">Ugrade to activate SMS reminders!</Link>}
 
             {/* {!context.state.selectedDay &&
               <RemindersTable

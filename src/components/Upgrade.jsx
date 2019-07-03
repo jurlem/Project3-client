@@ -6,7 +6,9 @@ import PaypalButton from './PaypalButton';
 class Upgrade extends Component {
   state = {};
 
-  componentDidMount () {}
+  componentDidMount () {
+    console.log ('logging premium UPGRADE', this.context.state.premium);
+  }
 
   onUpgrade = () => {
     const id = this.context.state.userId;
@@ -14,6 +16,8 @@ class Upgrade extends Component {
     axios
       .get (`http://localhost:6001/manage/upgrade?id=${id}`)
       .then (result => {
+        console.log ('logging premium UPGRADE', this.context.state.premium);
+
         console.log ('LOGGING GET from manage/upgrade ', result.data);
         //the method to update state in context:
         this.context.updatePremiumState ();
@@ -31,8 +35,9 @@ class Upgrade extends Component {
       <React.Fragment>
         <div className="pd-top">
 
-          {premium === false
-            ? <React.Fragment>
+          {this.context.state.premium === true
+            ? <p>You have activated SMS Notification for monthly fee</p>
+            : <React.Fragment>
                 <h1>Upgrade to SMS-Reminder!</h1>
                 <p>
                   To be able to receive notifications via sms, upgrade to PREMIUM:
@@ -44,8 +49,6 @@ class Upgrade extends Component {
 
                 </p>
                 <br />
-
-                {' '}
                 <button
                   onClick={this.onUpgrade}
                   type="button"
@@ -53,8 +56,7 @@ class Upgrade extends Component {
                 >
                   Upgrade my account
                 </button>
-              </React.Fragment>
-            : <p>You have activated SMS Notification for monthly fee</p>}
+              </React.Fragment>}
 
         </div>
       </React.Fragment>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {MyContext} from './ReactContext';
-import CalendarReact from 'react-calendar';
+import {Link} from 'react-router-dom';
 //A function that returns a IETF language tag, based on all available sources.
 import getUserLocale from 'get-user-locale';
 import './Calendar.css';
@@ -82,16 +82,7 @@ class Calendar extends Component {
                 firstDayOfWeek={1}
                 //for selected days:
                 modifiers={this.modifier ()}
-                // selectedDays={[
-                //   new Date (2019, 6, 12),
-                //   new Date (2019, 6, 2),
-                //   {
-                //     after: new Date (2019, 6, 20),
-                //     before: new Date (2019, 6, 25),
-                //   },
-                // ]}
               />
-
               {this.state.selectedDay
                 ? <p>
                     Selected day: {this.state.selectedDay.toLocaleDateString ()}

@@ -1,29 +1,16 @@
 import React from 'react';
 import {convertDateToString} from '../utils/convertDateToString';
 import {convertDateToDateAndTime} from '../utils/convertDateToDateAndTime';
+import {paginate} from '../utils/paginate';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faTrash} from '@fortawesome/free-solid-svg-icons';
 import {faEdit} from '@fortawesome/free-solid-svg-icons';
 import {Link} from 'react-router-dom';
 
-const moment = require ('moment');
-
-//   convertDateToString(reminder.date) - changes time d;
-
 const RemindersTable = props => {
-  const {reminders, handleDelete, handleEditReminder, paginate} = props;
+  const {reminders: allReminders, handleDelete, currentPage, pageSize} = props;
 
-  let today = new Date ();
-  today = convertDateToString (today);
-  console.log (today);
-
-  // const showReminder = !selectedDay
-  // ? reminders
-  // : this.props.reminders.filter (
-  //     reminder =>
-  //       convertDateToString (reminder.date) ===
-  //       convertDateToString (selectedDay)
-  //   );
+  let remindersR = paginate (allReminders, currentPage, pageSize);
 
   return (
     <table className="table">
@@ -38,9 +25,7 @@ const RemindersTable = props => {
         </tr>
       </thead>
       <tbody>
-        {reminders.map ((reminder, index) => {
-          // if (today <= {convertDateToString (reminder.date)})
-
+        {remindersR.map ((reminder, index) => {
           return (
             <tr key={reminder._id}>
               <td>
@@ -56,10 +41,23 @@ const RemindersTable = props => {
                 />
               </td>
               <td>
-                <Link><FontAwesomeIcon icon={faEdit} /></Link>
-
-                {/* onClick={() => handleEditReminder (reminder._id)} */}
-
+                <Link
+                  to={{
+                    pathname: '/remindersedit',
+                    state: {
+                      fromNotifications: true,
+                      id: `${reminder._id}`,
+                      date: `${reminder.date}`,
+                      remindMe: `${reminder.remindMe}`,
+                      text: `${reminder.text}`,
+                      gridRadios: `${reminder.gridRadios}`,
+                    },
+                  }}
+                  // to={`/remindersedit?id=${reminder._id}&remindMe=${reminder.remindMe}&text=${reminder.text}&gridRadios=${reminder.gridRadios}`}
+                  // reminders={this.props.reminders}
+                >
+                  <FontAwesomeIcon icon={faEdit} />
+                </Link>
               </td>
             </tr>
           );

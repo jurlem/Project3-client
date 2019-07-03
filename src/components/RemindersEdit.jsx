@@ -2,29 +2,32 @@ import React, {Component} from 'react';
 import {MyContext} from './ReactContext';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {convertDateToDateAndTime} from '../utils/convertDateToDateAndTime';
 
 class RemindersEdit extends Component {
   state = {
-    // _id: this.props.state.userId,
-
-    first_name: this.context.state.first_name,
-    email_address: this.context.state.email_address,
-    phone_number: this.context.state.phone_number,
+    _id: this.props.location.state.id,
+    date: this.props.location.state.date,
+    remindMe: this.props.location.state.remindMe,
+    text: this.props.location.state.text,
+    gridRadios: this.props.location.state.gridRadios,
+    userId: this.context.state.userId,
   };
+
+  componentDidMount () {}
 
   handleEntry = e => {
     console.log (e.target.value);
     let {name, value} = e.target;
     this.setState ({[name]: value});
-    // defaultValue ?
   };
 
   handleFormSubmit = e => {
     e.preventDefault ();
-    let _id = this.context.state.userId;
+    let id = this.props.location.state.id;
     axios
       .post (
-        `http://localhost:6001/users/remindersedit`,
+        `http://localhost:6001/reminders/remindersedit`,
         this.state
         // {
         //   withCredentials: true,
@@ -62,13 +65,16 @@ class RemindersEdit extends Component {
                     Date and time
                   </label>
                   <div className="col-sm-10">
+                    <p>
+                      {convertDateToDateAndTime (this.state.date)}
+                    </p>
                     <input
-                      defaultValue={context.state.email_address}
+                      // defaultValue={this.state.date}
                       type="datetime-local"
                       name="date"
                       className="form-control"
                       id="date"
-                      placeholder="Date"
+                      placeholder={convertDateToDateAndTime (this.state.date)}
                       onChange={e => this.handleEntry (e)}
                     />
                   </div>
@@ -83,13 +89,16 @@ class RemindersEdit extends Component {
                     className="col-sm-10"
                     onChange={e => this.handleEntry (e)}
                   >
+                    <p>
+                      {this.state.remindMe}
+                    </p>
                     <select
                       name="remindMe"
                       className="form-control"
                       id="remindme"
                     >
-                      <option value="">
-                        Please choose reminder alert time:
+                      <option defaultValue={this.state.date}>
+                        Please choose new reminder alert time:
                       </option>
                       <option value="6h">6 hours before</option>
                       <option value="3h">3 hours before</option>
@@ -108,6 +117,7 @@ class RemindersEdit extends Component {
                   </label>
                   <div className="col-sm-10">
                     <input
+                      defaultValue={this.state.text}
                       type="text"
                       name="text"
                       className="form-control"
@@ -128,6 +138,10 @@ class RemindersEdit extends Component {
                     </legend>
                     <div className="col-sm-10">
                       <div className="form-check">
+                        <p>
+                          {this.state.gridRadios}
+                        </p>
+                        <br />
                         <input
                           className="form-check-input"
                           type="radio"

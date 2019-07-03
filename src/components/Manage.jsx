@@ -18,6 +18,8 @@ class Manage extends Component {
 
   //siin vaata Gijs'i pokemoni näidet
   componentDidMount () {
+    console.log ('logging premium MANAGE', this.context.state.premium);
+
     axios.get ('http://localhost:6001/manage').then (result => {
       console.log ('showing the results from manage: ', result.data);
       this.setState ({users: result.data});
