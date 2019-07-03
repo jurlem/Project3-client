@@ -45,10 +45,6 @@ class Reminders extends Component {
     this.setState ({reminders: newReminders});
   };
 
-  // *** get results starting from today!!
-  // ***  if selectedDay = something, then show only those
-  // *** get only User reminders
-
   render () {
     return (
       <MyContext.Consumer>

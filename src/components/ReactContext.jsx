@@ -7,19 +7,15 @@ const MyContext = React.createContext ();
 
 // Then create a provider Component
 class MyProvider extends Component {
-  state = {
-    //siia tuleb sinu soovitud state mida igale pool jagama hakata
-  };
+  state = {};
 
   componentDidMount () {}
 
   checkUser = () => {
     console.log ('checking user from state');
     console.log (this.state.theUser);
-    // debugger;
-    //7check if there is a state in context, if not võta Localstoragest  ja pane see setStte'ga
+    //7check if there is a state in context, if not take it from Localstoragest and SetState
     if (!this.state.theUser) {
-      // debugger;
       this.setState ({
         theUser: localStorage.getItem ('theUser'),
         typeOfUser: localStorage.getItem ('typeOfUser'),
@@ -99,17 +95,13 @@ class MyProvider extends Component {
     const userId = this.context.state.userId;
 
     //selectedDay Into date format selectedDad.intoDate
-    axios.get ()`http://localhost:6001/reminders/selectedday, {userId=${/* } //   username: 'Batman', //   password: '12345', // {*/
-    userId}, date=${date}`
-      // `http://localhost:6001/reminders/selectedday?userId=${userId}&date=${date}`
+    axios.get ()`http://localhost:6001/reminders/selectedday, {userId=${userId}, date=${date}}`
       .then (result => {
         console.log (date);
         console.log (
           'LOGGING RESULT from reminders/selecctedday/USERID/DATE ',
           result.data
         );
-
-        //kuidas ma siit saan renderdada tulemust Reminders tab'i?
       })
       .catch (err => {
         console.log (err);

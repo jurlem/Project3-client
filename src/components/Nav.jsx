@@ -7,9 +7,6 @@ class Nav extends Component {
   state = {};
 
   componentDidMount () {
-    // set user to context (checkUser)
-    // const userId = this.context.state.userId ? this.context.state.userId : localStorage.getItem ('userId');
-
     this.context.checkUser ();
   }
 

@@ -35,9 +35,6 @@ class ProfileEdit extends Component {
         this.context.handleLogin (response);
 
         this.props.history.push ('/profile');
-
-        //https://www.lullabot.com/articles/processing-forms-in-react
-        // ütle, et message is sent && refresh the page!!!
       })
       .catch (err => {
         this.setState ({error: err.response.message});
@@ -46,7 +43,6 @@ class ProfileEdit extends Component {
   };
 
   render () {
-    // const userId = this.context.state.userId;
     return (
       <MyContext.Consumer>
         {context => (

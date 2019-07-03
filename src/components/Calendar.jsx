@@ -10,9 +10,6 @@ import Helmet from 'react-helmet';
 
 import 'react-day-picker/lib/style.css';
 
-// OR : DayPickerInput
-// import DayPickerInput from 'react-day-picker/DayPickerInput'
-
 class Calendar extends Component {
   state = {
     selectedDay: undefined,
@@ -26,17 +23,12 @@ class Calendar extends Component {
       this.setState ({selectedDay: undefined});
 
       //run a method of MyContext to update the setstate in context
-      debugger;
       this.context.selectedDayContext (undefined);
       return;
     }
-
     this.setState ({selectedDay: day});
     // show selected day in context state:
     this.context.selectedDayContext (day);
-
-    // render Reminders per selected day - peab olema siin, sest Reminders'ite comp ei uuene automaatselt (?)
-    // this.context.remindersPerDay (day);
   };
 
   modifier = () => {
@@ -44,9 +36,6 @@ class Calendar extends Component {
       reminder => new Date (reminder.date)
     );
     return {
-      // birthday: new Date (2019, 5, 7),
-      // monday: {[(new Date (2019, 5, 6)), ( new Date (2019, 5, 4))]},
-
       highlighted: allDaysHighlighted,
     };
   };

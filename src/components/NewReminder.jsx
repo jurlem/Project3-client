@@ -5,12 +5,12 @@ import axios from 'axios';
 class NewReminder extends Component {
   state = {};
 
-  componentDidUpdate (prevProps, prevState) {
-    if (this.context.state.premium !== prevState.premium) {
-      // Whatever storage mechanism you end up deciding to use.
-      localStorage.getItem ('premium');
-    }
-  }
+  // componentDidUpdate (prevProps, prevState) {
+  //   if (this.context.state.premium !== prevState.premium) {
+  //     // Whatever storage mechanism you end up deciding to use.
+  //     localStorage.getItem ('premium');
+  //   }
+  // }
 
   componentDidMount () {
     // const premium = this.context.state.premium

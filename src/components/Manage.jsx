@@ -11,12 +11,10 @@ class Manage extends Component {
     currentPage: 1,
   };
 
-  // into common!?
   onPageChange = page => {
     this.setState ({currentPage: page});
   };
 
-  //siin vaata Gijs'i pokemoni näidet
   componentDidMount () {
     console.log ('logging premium MANAGE', this.context.state.premium);
 
