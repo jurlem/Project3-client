@@ -11,7 +11,3 @@ export function convertDateToDateAndTime (date) {
   const minutes = ('0' + min).slice (-2);
   return ` ${hour}:${minutes} ${day}-${month}-${year} `;
 }
-
-export function convertDateToStringTwo (date) {
-  const newDate = date;
-}

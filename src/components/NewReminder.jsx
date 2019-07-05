@@ -170,7 +170,7 @@ class NewReminder extends Component {
                           EMAIL reminder notification
                         </label>
                       </div>
-                      {context.state.premium === true
+                      {context.state.premium === 'Yes'
                         ? <div className="form-check">
                             <input
                               className="form-check-input"

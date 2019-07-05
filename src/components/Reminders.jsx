@@ -75,7 +75,7 @@ class Reminders extends Component {
           <React.Fragment>
             <h2>Reminders </h2>
             <br />
-            {this.context.state.premium === true
+            {this.context.state.premium === 'Yes'
               ? ''
               : <Link to="/upgrade">Ugrade to activate SMS reminders!</Link>}
 

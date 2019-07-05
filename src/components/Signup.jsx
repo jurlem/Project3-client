@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-// import {faEnvelope} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+  faUser,
+  faBuilding,
+  faPhone,
+  faEnvelope,
+  faLock,
+} from '@fortawesome/free-solid-svg-icons';
+import '@fortawesome/free-solid-svg-icons';
 // import './Signup.css';
 
 class Signup extends Component {
@@ -65,14 +72,13 @@ class Signup extends Component {
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      {' '}
-                      <i class="fa fa-user" />{' '}
+                      <FontAwesomeIcon icon={faUser} />
                     </span>
                   </div>
                   <input
                     name="first_name"
                     class="form-control"
-                    placeholder="Full name"
+                    placeholder="First name"
                     type="text"
                     onChange={e => this.handleEntry (e)}
                   />
@@ -81,9 +87,7 @@ class Signup extends Component {
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      {' '}
-                      <i class="fa fa-envelope" />{' '}
-                      <faEnvelope />
+                      <FontAwesomeIcon icon={faEnvelope} />
                     </span>
                   </div>
                   <input
@@ -98,8 +102,7 @@ class Signup extends Component {
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      {' '}
-                      <i class="fa fa-phone" />{' '}
+                      <FontAwesomeIcon icon={faPhone} />
                     </span>
                   </div>
                   <select class="custom-select" style={{'max-width': '120px'}}>
@@ -116,11 +119,12 @@ class Signup extends Component {
                     onChange={e => this.handleEntry (e)}
                   />
                 </div>
+
                 {/* <!-- form-group// --> */}
-                <div class="form-group input-group">
+                {/* <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      {' '}
+                      <FontAwesomeIcon icon={faBuilding} />
                       <i class="fa fa-building" />{' '}
                     </span>
                   </div>
@@ -130,15 +134,16 @@ class Signup extends Component {
                     onChange={e => this.handleEntry (e)}
                   >
                     <option value="?" selected=""> Select Premium</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
-                </div>
+                </div> */}
+
                 {/* <!-- form-group end.// -->  */}
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      <i class="fa fa-lock" />{' '}
+                      <FontAwesomeIcon icon={faLock} />
                     </span>
                   </div>
                   <input
@@ -153,8 +158,7 @@ class Signup extends Component {
                 <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
-                      {' '}
-                      <i class="fa fa-lock" />{' '}
+                      <FontAwesomeIcon icon={faLock} />
                     </span>
                   </div>
                   <input

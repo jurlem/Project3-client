@@ -8,12 +8,20 @@ class Profile extends Component {
   state = {};
 
   componentDidMount () {
+    this.context.checkUser ();
+
+    // Make sure the Premium is there
     const premium = this.context.state.premium
       ? this.context.state.premium
       : localStorage.getItem ('premium');
 
+    // make sure the userId is there
+    const userId = this.context.state.userId
+      ? this.context.state.userId
+      : localStorage.getItem ('userId');
+
     console.log ('logging premium Profile', this.context.state.premium);
-    const userId = this.context.state.userId;
+    // const userId = this.context.state.userId;
 
     axios
       .get (`http://localhost:6001/reminders/statistics?userId=${userId}`)
@@ -52,7 +60,7 @@ class Profile extends Component {
                     <td> {context.state.email_address}</td>
                     <td>{context.state.phone_number}</td>
                     <td>
-                      {context.state.premium === false
+                      {this.context.state.premium === 'No'
                         ? <p>
                             No
                             <Link to="/upgrade">
@@ -76,7 +84,7 @@ class Profile extends Component {
                 </tbody>
               </table>
 
-              {this.context.state.premium === false
+              {this.context.state.premium === 'No'
                 ? <Link to="/upgrade">Ugrade to activate SMS reminders!</Link>
                 : ''}
 

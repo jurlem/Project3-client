@@ -14,8 +14,9 @@ import NotFound from './components/NotFound';
 import Profile from './components/Profile';
 import ProfileEdit from './components/ProfileEdit';
 import RemindersEdit from './components/RemindersEdit';
+import ManageEdit from './components/ManageEdit';
 import ProtectedRoute from './common/ProtectedRoute';
-
+import ProtectedAdminRoute from './common/ProtectedAdminRoute';
 import './App.css';
 
 class App extends Component {
@@ -35,7 +36,6 @@ class App extends Component {
                 <Route path="/logout" component={Logout} />
 
                 {/* protected ADMIN route * EI TÖÖTA!!*/}
-                <Route path="/manage" component={Manage} />
                 {/* <Route
                   path="/manage"
                   render={props => {
@@ -45,21 +45,25 @@ class App extends Component {
                   }}
                 />; */}
 
-                <Route path="/newreminder" component={NewReminder} />
+                {/* <Route path="/newreminder" component={NewReminder} />
                 <Route path="/upgrade" component={Upgrade} />
                 <Route path="/profile" component={Profile} />
-                <Route path="/profileedit" component={ProfileEdit} />
-                <Route path="/remindersedit" component={RemindersEdit} />
+                <Route path="/profileedit" component={ProfileEdit} /> */}
 
-                {/* // make PROTECTED USER routes - creates trouble */}
-
-                {/* <ProtectedRoute path="/newreminder" component={NewReminder} />;
+                <ProtectedRoute path="/newreminder" component={NewReminder} />;
                 <ProtectedRoute path="/upgrade" component={Upgrade} />;
-                <ProtectedRoute path="/profile" component={Profile} />; */}
-                {/* <ProtectedRoute path="/profileedit" component={ProfileEdit} />; */}
+                <ProtectedRoute path="/profile" component={Profile} />;
+                <ProtectedRoute path="/profileedit" component={ProfileEdit} />;
+
+                <ProtectedRoute
+                  path="/remindersedit"
+                  component={RemindersEdit}
+                />
+                {/* // make PROTECTED USER routes - creates trouble */}
+                <Route path="/manage" component={Manage} />
+                <Route path="/manageedit" component={ManageEdit} />
 
                 <Route exact path="/" component={ReminderTool} />
-                <Route path="/pay" component={PaypalButton} />
                 <Route path="/nothinghere" component={NotFound} />
                 <Redirect to="/nothinghere" />
 

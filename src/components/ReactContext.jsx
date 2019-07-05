@@ -9,12 +9,25 @@ const MyContext = React.createContext ();
 class MyProvider extends Component {
   state = {};
 
-  componentDidMount () {}
+  componentDidMount () {
+    if (!this.state.theUser) {
+      this.setState ({
+        theUser: localStorage.getItem ('theUser'),
+        typeOfUser: localStorage.getItem ('typeOfUser'),
+        first_name: localStorage.getItem ('first_name'),
+        email_address: localStorage.getItem ('email_address'),
+        phone_number: localStorage.getItem ('phone_number'),
+        premium: localStorage.getItem ('premium'),
+        userId: localStorage.getItem ('userId'),
+        selectedDay: convertDataType (localStorage.getItem ('selectedDay')),
+      });
+    }
+  }
 
   checkUser = () => {
     console.log ('checking user from state');
     console.log (this.state.theUser);
-    //7check if there is a state in context, if not take it from Localstoragest and SetState
+    // 7check if there is a state in context, if not take it from Localstoragest and SetState
     if (!this.state.theUser) {
       this.setState ({
         theUser: localStorage.getItem ('theUser'),
@@ -86,7 +99,7 @@ class MyProvider extends Component {
 
   // show updated Premium = True state in CONTEXT state:
   updatePremiumState = () => {
-    this.setState ({premium: true});
+    this.setState ({premium: 'Yes'});
   };
 
   // shows in Reminders comp reminders per selected day

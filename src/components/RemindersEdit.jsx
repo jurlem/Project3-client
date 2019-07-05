@@ -14,7 +14,12 @@ class RemindersEdit extends Component {
     userId: this.context.state.userId,
   };
 
-  componentDidMount () {}
+  componentDidMount () {
+    // lisa premiumi olemasolemise rida
+    const premium = this.context.state.premium
+      ? this.context.state.premium
+      : localStorage.getItem ('premium');
+  }
 
   handleEntry = e => {
     console.log (e.target.value);
@@ -156,7 +161,7 @@ class RemindersEdit extends Component {
                           EMAIL reminder notification
                         </label>
                       </div>
-                      {context.state.premium === 'true'
+                      {context.state.premium === 'Yes'
                         ? <div className="form-check">
                             <input
                               className="form-check-input"

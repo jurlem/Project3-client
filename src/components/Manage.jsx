@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Pagination from '../common/pagination';
 import {paginate} from '../utils/paginate';
 import {MyContext} from './ReactContext';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faTrash} from '@fortawesome/free-solid-svg-icons';
+import {faEdit} from '@fortawesome/free-solid-svg-icons';
 
 class Manage extends Component {
   state = {
@@ -24,6 +28,26 @@ class Manage extends Component {
     });
   }
 
+  handleDeleteUser = user => {
+    axios
+      .get (`http://localhost:6001/users/delete?id=${user}`)
+      .then (result => {
+        console.log ('Deleted:', result.data.message);
+        this.setState ({});
+        this.props.history.push ('/manage');
+      })
+      .catch (err => {
+        console.log (err);
+      });
+
+    const prevUsers = this.state.users;
+    let newUsers = prevUsers.filter (item => {
+      return item._id !== user;
+    });
+
+    this.setState ({users: newUsers});
+  };
+
   render () {
     const {pageSize, currentPage, users: allUsers} = this.state;
     const users = paginate (allUsers, currentPage, pageSize);
@@ -43,9 +67,11 @@ class Manage extends Component {
                 <th>email address</th>
                 <th>phone</th>
                 <th>type of user</th>
-                <th>email/sms</th>
+                <th>Premium</th>
 
                 <th />
+                <th />
+
               </tr>
             </thead>
             <tbody>
@@ -60,7 +86,7 @@ class Manage extends Component {
                     <td>{user.typeOfUser}</td>
 
                     <td>
-                      {user.premium === true
+                      {user.premium === 'Yes'
                         ? <p>
                             Yes
                           </p>
@@ -68,15 +94,33 @@ class Manage extends Component {
                             No
                           </p>}
                     </td>
-
                     <td>
-                      <button className="btn btn-primary btn-sm">
-
-                        {/* onClick={() => this.handleDelete (reminder._id)} */}
-
-                        EDIT
-                      </button>
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        onClick={() => this.handleDeleteUser (user._id)}
+                      />
                     </td>
+                    <td>
+                      <Link
+                        to={{
+                          pathname: '/manageedit',
+                          state: {
+                            userId: `${user._id}`,
+                            first_name: `${user.first_name}`,
+
+                            email_address: `${user.email_address}`,
+                            phone_number: `${user.phone_number}`,
+                            typeOfUser: `${user.typeOfUser}`,
+                            premium: `${user.premium}`,
+                          },
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+
+                      </Link>
+
+                    </td>
+
                   </tr>
                 );
               })}

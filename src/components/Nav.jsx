@@ -7,7 +7,7 @@ class Nav extends Component {
   state = {};
 
   componentDidMount () {
-    this.context.checkUser ();
+    // this.context.checkUser ();
   }
 
   render () {

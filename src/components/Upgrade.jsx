@@ -31,11 +31,12 @@ class Upgrade extends Component {
     const premium = this.context.state.premium
       ? this.context.state.premium
       : localStorage.getItem ('premium');
+    console.log ('premium in render()', this.context.state.premium);
     return (
       <React.Fragment>
         <div className="pd-top">
 
-          {this.context.state.premium === true
+          {premium === 'Yes'
             ? <p>You have activated SMS Notification for monthly fee</p>
             : <React.Fragment>
                 <h1>Upgrade to SMS-Reminder!</h1>
