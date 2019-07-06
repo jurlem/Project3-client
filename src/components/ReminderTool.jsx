@@ -11,13 +11,13 @@ class ReminderTool extends Component {
     reminders: [],
   };
 
-  async componentDidMount () {
+  componentDidMount () {
     // async lisasin ise, pole kindel kumb lahendus triki teeb, kuid reminderitega probleemi pole
     // see on Gijs'i lisatud rida, et ei renderdaks enne lehte kui remindereide loeb:
     const userId = this.context.state.userId
       ? this.context.state.userId
       : localStorage.getItem ('userId');
-    const response = await axios
+    axios
       .get (`http://localhost:6001/reminders/get?id=${userId}`)
       .then (result => {
         console.log ('LOGGING GET from reminders/Get ', result.data);
@@ -49,6 +49,28 @@ class ReminderTool extends Component {
   };
 
   // HANDLE EDIT REMINDER
+
+  handleDelete = reminder => {
+    axios
+      .get (`http://localhost:6001/reminders/remindersedit?id=${reminder}`)
+      //pean miskit kaasa andma nagu Edit user in profile
+
+      .then (result => {
+        console.log ('EDITED:', result.data.message);
+        this.setState ({});
+        this.props.history.push ('/');
+      })
+      .catch (err => {
+        console.log (err);
+      });
+
+    const prevReminders = this.state.reminders;
+    let newReminders = prevReminders.filter (item => {
+      return item._id !== reminder;
+    });
+
+    this.setState ({reminders: newReminders});
+  };
 
   render () {
     return (

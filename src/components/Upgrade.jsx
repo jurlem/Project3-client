@@ -14,7 +14,7 @@ class Upgrade extends Component {
     const id = this.context.state.userId;
 
     axios
-      .get (`http://localhost:6001/manage/upgrade?id=${id}`)
+      .get (`/manage/upgrade?id=${id}`)
       .then (result => {
         console.log ('logging premium UPGRADE', this.context.state.premium);
 

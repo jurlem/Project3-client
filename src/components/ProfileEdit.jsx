@@ -23,7 +23,7 @@ class ProfileEdit extends Component {
     let _id = this.context.state.userId;
     axios
       .post (
-        `http://localhost:6001/users/profileedit`,
+        `/users/profileedit`,
         this.state
         // {
         //   withCredentials: true,

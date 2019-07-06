@@ -35,7 +35,6 @@ class App extends Component {
                 <Route path="/Login" component={Login} />
                 <Route path="/logout" component={Logout} />
 
-                {/* protected ADMIN route * EI TÖÖTA!!*/}
                 {/* <Route
                   path="/manage"
                   render={props => {
@@ -45,23 +44,21 @@ class App extends Component {
                   }}
                 />; */}
 
-                {/* <Route path="/newreminder" component={NewReminder} />
-                <Route path="/upgrade" component={Upgrade} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/profileedit" component={ProfileEdit} /> */}
-
-                <ProtectedRoute path="/newreminder" component={NewReminder} />;
-                <ProtectedRoute path="/upgrade" component={Upgrade} />;
-                <ProtectedRoute path="/profile" component={Profile} />;
-                <ProtectedRoute path="/profileedit" component={ProfileEdit} />;
-
                 <ProtectedRoute
                   path="/remindersedit"
                   component={RemindersEdit}
                 />
-                {/* // make PROTECTED USER routes - creates trouble */}
-                <Route path="/manage" component={Manage} />
-                <Route path="/manageedit" component={ManageEdit} />
+                <ProtectedRoute path="/newreminder" component={NewReminder} />;
+                <ProtectedRoute path="/upgrade" component={Upgrade} />;
+                <ProtectedRoute path="/profileedit" component={ProfileEdit} />;
+                <ProtectedRoute path="/profile" component={Profile} />;
+
+                {/* // make PROTECTED admin routes - creates trouble */}
+                <ProtectedAdminRoute path="/manage" component={Manage} />
+                <ProtectedAdminRoute
+                  path="/manageedit"
+                  component={ManageEdit}
+                />
 
                 <Route exact path="/" component={ReminderTool} />
                 <Route path="/nothinghere" component={NotFound} />

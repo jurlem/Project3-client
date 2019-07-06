@@ -15,7 +15,7 @@ class Reminders extends Component {
     // console.log ('console.log this.context', this.context.state.userId);
     const userId = this.context.state.userId;
     axios
-      .get (`http://localhost:6001/reminders/get?id=${userId}`)
+      .get (`/reminders/get?id=${userId}`)
       .then (result => {
         console.log ('LOGGING GET from reminders/Get ', result.data);
         this.setState ({reminders: result.data});
@@ -29,7 +29,7 @@ class Reminders extends Component {
 
   handleDelete = reminder => {
     axios
-      .get (`http://localhost:6001/reminders/delete?id=${reminder}`)
+      .get (`/reminders/delete?id=${reminder}`)
       .then (result => {
         console.log ('Deleted:', result.data.message);
         this.setState ({});

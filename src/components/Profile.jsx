@@ -60,15 +60,15 @@ class Profile extends Component {
                     <td> {context.state.email_address}</td>
                     <td>{context.state.phone_number}</td>
                     <td>
-                      {this.context.state.premium === 'No'
+                      {this.context.state.premium === 'Yes'
                         ? <p>
+                            Yes
+                          </p>
+                        : <p>
                             No
                             <Link to="/upgrade">
                               Ugrade to activate SMS reminders!
                             </Link>
-                          </p>
-                        : <p>
-                            Yes
                           </p>}
                     </td>
                     <td>

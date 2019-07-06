@@ -15,10 +15,9 @@ class ProtectedAdminRoute extends Component {
             path={path}
             {...rest}
             render={props => {
-              if (!context.state.theUser) return <Redirect to="/login" />;
-              if (!context.state.typeOfUser === 'ADMIN')
-                return <Redirect to="/login" />;
-              return Component ? <Component {...props} /> : render (props);
+              if (context.state.typeOfUser === 'ADMIN')
+                return Component ? <Component {...props} /> : render (props);
+              return <Redirect to="/login" />;
             }}
           />
         )}

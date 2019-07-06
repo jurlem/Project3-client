@@ -12,6 +12,7 @@ class RemindersEdit extends Component {
     text: this.props.location.state.text,
     gridRadios: this.props.location.state.gridRadios,
     userId: this.context.state.userId,
+    radioState: false,
   };
 
   componentDidMount () {
@@ -132,6 +133,7 @@ class RemindersEdit extends Component {
                     />
                   </div>
                 </div>
+
                 {/* Radios */}
                 <fieldset
                   className="form-group"
@@ -143,9 +145,7 @@ class RemindersEdit extends Component {
                     </legend>
                     <div className="col-sm-10">
                       <div className="form-check">
-                        <p>
-                          {this.state.gridRadios}
-                        </p>
+                        <p />
                         <br />
                         <input
                           className="form-check-input"
@@ -153,6 +153,7 @@ class RemindersEdit extends Component {
                           name="gridRadios"
                           id="gridRadios1"
                           value="email"
+                          defaultChecked={this.state.gridRadios === 'email'}
                         />
                         <label
                           className="form-check-label"
@@ -161,23 +162,23 @@ class RemindersEdit extends Component {
                           EMAIL reminder notification
                         </label>
                       </div>
-                      {context.state.premium === 'Yes'
-                        ? <div className="form-check">
-                            <input
-                              className="form-check-input"
-                              type="radio"
-                              name="gridRadios"
-                              id="gridRadios2"
-                              value="sms"
-                            />
-                            <label
-                              className="form-check-label"
-                              htmlFor="gridRadios2"
-                            >
-                              SMS reminder notification
-                            </label>
-                          </div>
-                        : ''}
+                      {context.state.premium === 'Yes' &&
+                        <div className="form-check">
+                          <input
+                            className="form-check-input"
+                            type="radio"
+                            name="gridRadios"
+                            id="gridRadios2"
+                            value="sms"
+                            defaultChecked={this.state.gridRadios === 'sms'}
+                          />
+                          <label
+                            className="form-check-label"
+                            htmlFor="gridRadios2"
+                          >
+                            SMS reminder notification
+                          </label>
+                        </div>}
 
                     </div>
                   </div>

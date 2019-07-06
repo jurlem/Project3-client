@@ -27,25 +27,3 @@ class ProtectedRoute extends Component {
 ProtectedRoute.contextType = MyContext;
 
 export default ProtectedRoute;
-
-// *************************************'
-
-// as SFC doesnt know the this.context...
-
-// let user = this.context.state.theUser;
-
-// const ProtectedRoute = ({path, component: Component, render, ...rest}) => {
-//   return (
-//     <Route
-//       path={path}
-//       {...rest}
-//       render={props => {
-//         if (!user) return <Redirect to="/login" />;
-//         return Component ? <Component {...props} /> : render (props);
-//       }}
-//     />
-//   );
-// };
-// ProtectedRoute.contextType = MyContext;
-
-// export default ProtectedRoute;

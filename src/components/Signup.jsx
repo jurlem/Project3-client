@@ -32,7 +32,7 @@ class Signup extends Component {
     //console.log ('console.logging the state ', this.state);
     e.preventDefault ();
     axios
-      .post ('http://localhost:6001/auth/signup', this.state)
+      .post ('/auth/signup', this.state)
       .then (response => {
         console.log ('This comes back from auth/create:', response);
         //https://www.lullabot.com/articles/processing-forms-in-react

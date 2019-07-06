@@ -21,23 +21,37 @@ class Reminders extends Component {
     this.setState ({currentPage: page});
   };
 
+  // filteredFromTodayReminders = reminders => {
+  //   reminders.filter (reminder => {
+  //     let rDate = new Date (reminder.date);
+  //     let now = new Date ();
+  //     let remindersFromToday = [];
+  //     return (remindersFromToday = rDate > now);
+  //   });
+  //   console.log (remindersFromToday);
+  // };
+
   renderReminderComponent = () => {
     const {pageSize, currentPage} = this.state;
     const {reminders: allReminders} = this.props;
     let reminders = allReminders;
     // let reminders = paginate (allReminders, currentPage, pageSize);
     // let reminders = this.props.reminders;
+
     let remindersConverted = reminders.map (reminder => {
       return convertDateToString (reminder.date);
       console.log (remindersConverted);
     });
 
     // Display here only reminders > new Date()
+    //make a separate function and place the fuction call here.
+
     reminders = reminders.filter (reminder => {
       let rDate = new Date (reminder.date);
       let now = new Date ();
       return rDate > now;
     });
+    // this.filteredFromTodayReminders (reminders);
 
     const selectedDay = this.context.state.selectedDay;
 
@@ -48,6 +62,7 @@ class Reminders extends Component {
             convertDateToString (reminder.date) ===
             convertDateToString (selectedDay)
         );
+
     // this.props.reminders.filter(reminder => convertDateToString(reminder.date) === convertDateToString(selectedDay));
     return (
       <RemindersTable

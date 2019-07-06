@@ -7,22 +7,18 @@ const MyContext = React.createContext ();
 
 // Then create a provider Component
 class MyProvider extends Component {
-  state = {};
+  state = {
+    theUser: localStorage.getItem ('theUser'),
+    typeOfUser: localStorage.getItem ('typeOfUser'),
+    first_name: localStorage.getItem ('first_name'),
+    email_address: localStorage.getItem ('email_address'),
+    phone_number: localStorage.getItem ('phone_number'),
+    premium: localStorage.getItem ('premium'),
+    userId: localStorage.getItem ('userId'),
+    selectedDay: convertDataType (localStorage.getItem ('selectedDay')),
+  };
 
-  componentDidMount () {
-    if (!this.state.theUser) {
-      this.setState ({
-        theUser: localStorage.getItem ('theUser'),
-        typeOfUser: localStorage.getItem ('typeOfUser'),
-        first_name: localStorage.getItem ('first_name'),
-        email_address: localStorage.getItem ('email_address'),
-        phone_number: localStorage.getItem ('phone_number'),
-        premium: localStorage.getItem ('premium'),
-        userId: localStorage.getItem ('userId'),
-        selectedDay: convertDataType (localStorage.getItem ('selectedDay')),
-      });
-    }
-  }
+  componentDidMount () {}
 
   checkUser = () => {
     console.log ('checking user from state');
