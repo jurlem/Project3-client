@@ -57,7 +57,7 @@ class Reminders extends Component {
 
     const showReminder = !selectedDay
       ? filteredReminders
-      : this.props.filteredReminders.filter (
+      : this.props.reminders.filter (
           reminder =>
             convertDateToString (reminder.date) ===
             convertDateToString (selectedDay)
