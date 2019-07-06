@@ -33,7 +33,7 @@ class RemindersEdit extends Component {
     let id = this.props.location.state.id;
     axios
       .post (
-        `http://localhost:6001/reminders/remindersedit`,
+        `/reminders/remindersedit`,
         this.state
         // {
         //   withCredentials: true,

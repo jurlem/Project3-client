@@ -22,7 +22,7 @@ class Manage extends Component {
   componentDidMount () {
     console.log ('logging premium MANAGE', this.context.state.premium);
 
-    axios.get ('http://localhost:6001/manage').then (result => {
+    axios.get ('/manage').then (result => {
       console.log ('showing the results from manage: ', result.data);
       this.setState ({users: result.data});
     });
@@ -30,7 +30,7 @@ class Manage extends Component {
 
   handleDeleteUser = user => {
     axios
-      .get (`http://localhost:6001/users/delete?id=${user}`)
+      .get (`/users/delete?id=${user}`)
       .then (result => {
         console.log ('Deleted:', result.data.message);
         this.setState ({});

@@ -21,15 +21,16 @@ class Reminders extends Component {
     this.setState ({currentPage: page});
   };
 
-  // filteredFromTodayReminders = reminders => {
-  //   reminders.filter (reminder => {
-  //     let rDate = new Date (reminder.date);
-  //     let now = new Date ();
-  //     let remindersFromToday = [];
-  //     return (remindersFromToday = rDate > now);
-  //   });
-  //   console.log (remindersFromToday);
-  // };
+  filteredFromTodayReminders = reminders => {
+    const filteredReminders = reminders.filter (reminder => {
+      let rDate = new Date (reminder.date);
+      let now = new Date ();
+      console.log (rDate > now);
+      return rDate > now;
+    });
+    console.log ('reminders after filter: ', filteredReminders);
+    return filteredReminders;
+  };
 
   renderReminderComponent = () => {
     const {pageSize, currentPage} = this.state;
@@ -45,19 +46,18 @@ class Reminders extends Component {
 
     // Display here only reminders > new Date()
     //make a separate function and place the fuction call here.
-
-    reminders = reminders.filter (reminder => {
-      let rDate = new Date (reminder.date);
-      let now = new Date ();
-      return rDate > now;
-    });
-    // this.filteredFromTodayReminders (reminders);
-
+    // reminders = reminders.filter (reminder => {
+    //   let rDate = new Date (reminder.date);
+    //   let now = new Date ();
+    //   return rDate > now;
+    // });
+    const filteredReminders = this.filteredFromTodayReminders (reminders);
+    console.log (filteredReminders);
     const selectedDay = this.context.state.selectedDay;
 
     const showReminder = !selectedDay
-      ? reminders
-      : this.props.reminders.filter (
+      ? filteredReminders
+      : this.props.filteredReminders.filter (
           reminder =>
             convertDateToString (reminder.date) ===
             convertDateToString (selectedDay)
@@ -103,7 +103,9 @@ class Reminders extends Component {
             {this.renderReminderComponent ()}
 
             <Pagination
-              itemsCount={this.props.reminders.length}
+              itemsCount={
+                this.filteredFromTodayReminders (this.props.reminders).length
+              }
               pageSize={pageSize}
               currentPage={currentPage}
               onPageChange={this.onPageChange}

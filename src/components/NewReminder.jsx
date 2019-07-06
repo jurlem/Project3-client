@@ -37,7 +37,7 @@ class NewReminder extends Component {
 
     e.preventDefault ();
     axios
-      .post ('http://localhost:6001/reminders/create', reminder)
+      .post ('/reminders/create', reminder)
       .then (response => {
         console.log (reminder);
         console.log ('response from reminder response', response);

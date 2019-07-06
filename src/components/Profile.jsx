@@ -24,7 +24,7 @@ class Profile extends Component {
     // const userId = this.context.state.userId;
 
     axios
-      .get (`http://localhost:6001/reminders/statistics?userId=${userId}`)
+      .get (`/reminders/statistics?userId=${userId}`)
       .then (result => {
         console.log ('LOGGING GET from reminders/statistics ', result.data);
         this.setState ({reminders: result.data});

@@ -18,7 +18,7 @@ class ReminderTool extends Component {
       ? this.context.state.userId
       : localStorage.getItem ('userId');
     axios
-      .get (`http://localhost:6001/reminders/get?id=${userId}`)
+      .get (`/reminders/get?id=${userId}`)
       .then (result => {
         console.log ('LOGGING GET from reminders/Get ', result.data);
         this.setState ({reminders: result.data});
@@ -30,7 +30,7 @@ class ReminderTool extends Component {
 
   handleDelete = reminder => {
     axios
-      .get (`http://localhost:6001/reminders/delete?id=${reminder}`)
+      .get (`/reminders/delete?id=${reminder}`)
       .then (result => {
         console.log ('Deleted:', result.data.message);
         this.setState ({});
@@ -52,7 +52,7 @@ class ReminderTool extends Component {
 
   handleDelete = reminder => {
     axios
-      .get (`http://localhost:6001/reminders/remindersedit?id=${reminder}`)
+      .get (`/reminders/remindersedit?id=${reminder}`)
       //pean miskit kaasa andma nagu Edit user in profile
 
       .then (result => {

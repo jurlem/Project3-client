@@ -21,7 +21,7 @@ class Login extends Component {
   handleFormSubmit = e => {
     e.preventDefault ();
     axios
-      .post ('http://localhost:6001/auth/login', this.state, {
+      .post ('/auth/login', this.state, {
         withCredentials: true,
       })
       .then (response => {

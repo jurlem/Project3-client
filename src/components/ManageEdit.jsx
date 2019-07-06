@@ -27,7 +27,7 @@ class ManageEdit extends Component {
     let _id = this.context.state.userId;
     axios
       .post (
-        `/users/manageedit`,
+        `http://:6001/users/manageedit`,
         this.state
         // {
         //   withCredentials: true,
