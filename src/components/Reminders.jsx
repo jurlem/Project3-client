@@ -22,13 +22,14 @@ class Reminders extends Component {
   };
 
   // filteredFromTodayReminders = reminders => {
-  //   reminders.filter (reminder => {
+  //   const filteredReminders = reminders.filter (reminder => {
   //     let rDate = new Date (reminder.date);
   //     let now = new Date ();
-  //     let remindersFromToday = [];
-  //     return (remindersFromToday = rDate > now);
+  //     console.log (rDate > now);
+  //     return rDate > now;
   //   });
-  //   console.log (remindersFromToday);
+  //   console.log ('reminders after filter: ', filteredReminders);
+  //   return filteredReminders;
   // };
 
   renderReminderComponent = () => {

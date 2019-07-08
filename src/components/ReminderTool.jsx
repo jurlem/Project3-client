@@ -50,27 +50,27 @@ class ReminderTool extends Component {
 
   // HANDLE EDIT REMINDER
 
-  handleDelete = reminder => {
-    axios
-      .get (`/reminders/remindersedit?id=${reminder}`)
-      //pean miskit kaasa andma nagu Edit user in profile
+  // handleDelete = reminder => {
+  //   axios
+  //     .get (`/reminders/remindersedit?id=${reminder}`)
+  //     //pean miskit kaasa andma nagu Edit user in profile
 
-      .then (result => {
-        console.log ('EDITED:', result.data.message);
-        this.setState ({});
-        this.props.history.push ('/');
-      })
-      .catch (err => {
-        console.log (err);
-      });
+  //     .then (result => {
+  //       console.log ('EDITED:', result.data.message);
+  //       this.setState ({});
+  //       this.props.history.push ('/');
+  //     })
+  //     .catch (err => {
+  //       console.log (err);
+  //     });
 
-    const prevReminders = this.state.reminders;
-    let newReminders = prevReminders.filter (item => {
-      return item._id !== reminder;
-    });
+  //   const prevReminders = this.state.reminders;
+  //   let newReminders = prevReminders.filter (item => {
+  //     return item._id !== reminder;
+  //   });
 
-    this.setState ({reminders: newReminders});
-  };
+  //   this.setState ({reminders: newReminders});
+  // };
 
   render () {
     return (
