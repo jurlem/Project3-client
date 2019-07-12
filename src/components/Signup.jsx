@@ -121,7 +121,7 @@ class Signup extends Component {
                 </div>
 
                 {/* <!-- form-group// --> */}
-                {/* <div class="form-group input-group">
+                <div class="form-group input-group">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
                       <FontAwesomeIcon icon={faBuilding} />
@@ -137,7 +137,7 @@ class Signup extends Component {
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
-                </div> */}
+                </div>
 
                 {/* <!-- form-group end.// -->  */}
                 <div class="form-group input-group">

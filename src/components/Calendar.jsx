@@ -77,7 +77,7 @@ class Calendar extends Component {
                     Selected day: {this.state.selectedDay.toLocaleDateString ()}
                   </p>
                 : <p>Choose a day</p>}
-              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+              {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
             </div>
           </React.Fragment>
         )}

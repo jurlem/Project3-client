@@ -64,7 +64,7 @@ class NewReminder extends Component {
               <h1>{context.state.userId}</h1>
               <h2>{this.state.userId}</h2>
 
-              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+              {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
               <h1>New Reminder</h1>
             </div>
 

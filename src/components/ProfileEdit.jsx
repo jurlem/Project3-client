@@ -142,7 +142,7 @@ class ProfileEdit extends Component {
                   </div>
                 </div>
               </div>
-              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+              {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
 
             </main>
 

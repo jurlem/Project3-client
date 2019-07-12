@@ -71,7 +71,7 @@ class Reminders extends Component {
                   );
                 })}
               </div>
-              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+              {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
             </div>
 
           </React.Fragment>

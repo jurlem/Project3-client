@@ -27,14 +27,14 @@ class ManageEdit extends Component {
     let _id = this.context.state.userId;
     axios
       .post (
-        `http://:6001/users/manageedit`,
+        '/users/manageedit',
         this.state
         // {
         //   withCredentials: true,
         // }
       )
       .then (response => {
-        console.log ('This comes back from profileedit:', response.data);
+        console.log ('This comes back from manageedit:', response.data);
 
         //update context state:
         // sii vaha veidi teist update'i, mis ei muudaks kasutatavat ära kogu äpis
@@ -43,6 +43,7 @@ class ManageEdit extends Component {
         this.props.history.push ('/manage');
       })
       .catch (err => {
+        console.log (err);
         this.setState ({error: err.response.message});
         console.log (err);
       });
@@ -188,7 +189,7 @@ class ManageEdit extends Component {
                   </div>
                 </div>
               </div>
-              <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+              {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
 
             </main>
 

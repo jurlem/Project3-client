@@ -43,7 +43,7 @@ class Login extends Component {
     return (
       <React.Fragment>
         <div className="pd-top">
-          <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+          {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
           <main className="login-form">
             <div className="cotainer">
               <div className="row justify-content-center">

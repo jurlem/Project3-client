@@ -193,7 +193,7 @@ class RemindersEdit extends Component {
               </form>
             </div>
 
-            <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre>
+            {/* <pre>state:{JSON.stringify (this.state, '\t', 2)}</pre> */}
 
           </React.Fragment>
         )}
